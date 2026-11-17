@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Пульмонология | Образовательная платформа по пропедевтике</title>
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Верхняя панель (Header) -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="#auscultation" class="brand-wrapper">
+        <div class="brand-icon">
+          <!-- Медицинский символ: пульс и стетоскоп -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>PROPEDIK</h1>
+          <p>Пропедевтика внутренних болезней • Пульмонология</p>
+        </div>
+      </a>
+      <div class="header-badge">
+        <span class="header-badge-dot"></span>
+        <span>Клиническая платформа</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Навигация: 4 вкладки -->
+  <nav class="nav-section" aria-label="Разделы платформы">
+    <div class="nav-container" role="tablist">
+      
+      <!-- Вкладка 1 -->
+      <button class="nav-tab-btn active" role="tab" aria-selected="true" data-target="panel-auscultation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+          <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+          <path d="M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2 5-2"/>
+        </svg>
+        <span>1. Интерактивная аускультация легких</span>
+      </button>
+
+      <!-- Вкладка 2 -->
+      <button class="nav-tab-btn" role="tab" aria-selected="false" data-target="panel-pathologies">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="22" y1="12" x2="18" y2="12"/>
+          <line x1="6" y1="12" x2="2" y2="12"/>
+          <line x1="12" y1="6" x2="12" y2="2"/>
+          <line x1="12" y1="22" x2="12" y2="18"/>
+        </svg>
+        <span>2. Патологии дыхательной системы</span>
+      </button>
+
+      <!-- Вкладка 3 -->
+      <button class="nav-tab-btn" role="tab" aria-selected="false" data-target="panel-test">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+          <path d="M9 11l3 3L22 4"/>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+        <span>3. Тест</span>
+      </button>
+
+      <!-- Вкладка 4 -->
+      <button class="nav-tab-btn" role="tab" aria-selected="false" data-target="panel-about">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        <span>4. О проекте</span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- Основной контент платформы -->
+  <main class="main-wrapper">
+
+    <!-- ================= Вкладка 1: Интерактивная аускультация ================= -->
+    <section id="panel-auscultation" class="tab-panel active" role="tabpanel">
+      <div class="panel-hero">
+        <div class="panel-hero-content">
+          <h2>Интерактивная аускультация легких</h2>
+          <p>Интерактивная цифровая модель топографических точек выслушивания дыхательных шумов грудной клетки с аудио-сопровождением и клинической дифференциацией.</p>
+        </div>
+        <div class="hero-symbol">
+          <!-- Стетоскоп -->
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+            <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="auscultation-workspace">
+        
+        <!-- Левая колонка: Рентгенограмма легких с наложенными точками -->
+        <div class="xray-viewer-card">
+          <div class="xray-viewer-header">
+            <div class="xray-viewer-title">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <span id="xrayHeaderTitle">Обзорная рентгенограмма легких (прямая проекция) — Передняя группа точек</span>
+            </div>
+            <div class="xray-controls">
+              <button id="toggleLabelsBtn" class="xray-btn" type="button" title="Показать или скрыть подписи точек">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                <span>Подписи</span>
+              </button>
+              <button id="toggleInvertBtn" class="xray-btn" type="button" title="Инвертировать негатив/позитив">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/>
+                </svg>
+                <span>Инверсия</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Панель выбора топографической проекции / группы точек (Спереди / Сзади / Сбоку) -->
+          <div class="projection-toolbar">
+            <div class="projection-toolbar-label">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              <span>Проекция:</span>
+            </div>
+            <div class="projection-btn-group" role="tablist" aria-label="Выбор проекции грудной клетки">
+              <button type="button" class="proj-tab-btn active" data-projection="anterior" aria-selected="true" title="Передняя поверхность грудной клетки">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="10" cy="7" r="4"/>
+                </svg>
+                <span>Передняя группа</span>
+              </button>
+              <button type="button" class="proj-tab-btn" data-projection="posterior" aria-selected="false" title="Задняя поверхность грудной клетки">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="10" cy="7" r="4"/>
+                  <line x1="10" y1="11" x2="10" y2="19" stroke-dasharray="2 2"/>
+                </svg>
+                <span>Задняя группа</span>
+              </button>
+              <button type="button" class="proj-tab-btn" data-projection="lateral" aria-selected="false" title="Боковая поверхность (среднеподмышечная линия)">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2a4 4 0 0 1 4 4v3a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3h-4a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4z"/>
+                  <path d="M15 13c1 1 1.5 2.5 1.5 4.5"/>
+                </svg>
+                <span>Боковая группа</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Контейнер рентгенограммы и оверлея точек -->
+          <div id="xrayCanvasBox" class="xray-canvas-box">
+            <img id="xrayImage" src="image/нормальная рентгенограмма легких.png" alt="Нормальная рентгенограмма легких" class="xray-base-image">
+            
+            <div class="points-overlay-layer">
+              <!-- ================= ПЕРЕДНЯЯ ГРУППА ТОЧЕК (Спереди) ================= -->
+              <!-- Везикулярное дыхание спереди (пособие, рис. 5): верхушки, ключицы, I–III м/р по среднеключичной линии -->
+              <div class="auscultation-point group-vesicular group-active" style="left: 31%; top: 21%;" data-projection="anterior" data-group="vesicular" data-point="A-V1">
+                <span class="point-core">V1</span>
+                <span class="point-tooltip">Правая верхушка (надключичная область)</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 69%; top: 21%;" data-projection="anterior" data-group="vesicular" data-point="A-V2">
+                <span class="point-core">V2</span>
+                <span class="point-tooltip">Левая верхушка (надключичная область)</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 28%; top: 31%;" data-projection="anterior" data-group="vesicular" data-point="A-V3">
+                <span class="point-core">V3</span>
+                <span class="point-tooltip">Подключичная область справа (I м/р по среднеключичной линии)</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 72%; top: 31%;" data-projection="anterior" data-group="vesicular" data-point="A-V4">
+                <span class="point-core">V4</span>
+                <span class="point-tooltip">Подключичная область слева (I м/р по среднеключичной линии)</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 26%; top: 41%;" data-projection="anterior" data-group="vesicular" data-point="A-V5">
+                <span class="point-core">V5</span>
+                <span class="point-tooltip">II межреберье справа по среднеключичной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 74%; top: 41%;" data-projection="anterior" data-group="vesicular" data-point="A-V6">
+                <span class="point-core">V6</span>
+                <span class="point-tooltip">II межреберье слева по среднеключичной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 25%; top: 52%;" data-projection="anterior" data-group="vesicular" data-point="A-V7">
+                <span class="point-core">V7</span>
+                <span class="point-tooltip">III межреберье справа по среднеключичной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 75%; top: 52%;" data-projection="anterior" data-group="vesicular" data-point="A-V8">
+                <span class="point-core">V8</span>
+                <span class="point-tooltip">III межреберье слева по среднеключичной линии</span>
+              </div>
+
+              <!-- Бронхиальное дыхание спереди (пособие, стр. 36): над вырезкой грудины, гортань, рукоятка -->
+              <div class="auscultation-point group-bronchial" style="left: 50%; top: 10%;" data-projection="anterior" data-group="bronchial" data-point="A-B1">
+                <span class="point-core">B1</span>
+                <span class="point-tooltip">Область гортани (перстневидный и щитовидный хрящи)</span>
+              </div>
+              <div class="auscultation-point group-bronchial" style="left: 50%; top: 18%;" data-projection="anterior" data-group="bronchial" data-point="A-B2">
+                <span class="point-core">B2</span>
+                <span class="point-tooltip">Шейный отдел трахеи (над яремной вырезкой грудины)</span>
+              </div>
+              <div class="auscultation-point group-bronchial" style="left: 50%; top: 29%;" data-projection="anterior" data-group="bronchial" data-point="A-B3">
+                <span class="point-core">B3</span>
+                <span class="point-tooltip">Рукоятка грудины (бифуркация трахеи спереди, Th3–Th4)</span>
+              </div>
+
+              <!-- ================= ЗАДНЯЯ ГРУППА ТОЧЕК (Сзади) ================= -->
+              <!-- Везикулярное дыхание сзади (пособие, рис. 5): надлопаточные, межлопаточные (верх/низ), VII–IX м/р по лопаточной линии -->
+              <div class="auscultation-point group-vesicular" style="left: 29%; top: 24%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V1">
+                <span class="point-core">V1</span>
+                <span class="point-tooltip">Надлопаточная область справа (fossa supraspinata, над остью лопатки)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 71%; top: 24%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V2">
+                <span class="point-core">V2</span>
+                <span class="point-tooltip">Надлопаточная область слева (fossa supraspinata, над остью лопатки)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 41%; top: 34%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V3">
+                <span class="point-core">V3</span>
+                <span class="point-tooltip">Межлопаточное пространство справа (верхний отдел, уровень Th3–Th4)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 59%; top: 34%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V4">
+                <span class="point-core">V4</span>
+                <span class="point-tooltip">Межлопаточное пространство слева (верхний отдел, уровень Th3–Th4)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 41%; top: 46%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V5">
+                <span class="point-core">V5</span>
+                <span class="point-tooltip">Межлопаточное пространство справа (нижний отдел, углы лопаток Th6–Th7)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 59%; top: 46%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V6">
+                <span class="point-core">V6</span>
+                <span class="point-tooltip">Межлопаточное пространство слева (нижний отдел, углы лопаток Th6–Th7)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 30%; top: 58%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V7">
+                <span class="point-core">V7</span>
+                <span class="point-tooltip">Подлопаточная область справа, VII межреберье по лопаточной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 70%; top: 58%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V8">
+                <span class="point-core">V8</span>
+                <span class="point-tooltip">Подлопаточная область слева, VII межреберье по лопаточной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 28%; top: 68%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V9">
+                <span class="point-core">V9</span>
+                <span class="point-tooltip">Подлопаточная область справа, VIII межреберье по лопаточной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 72%; top: 68%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V10">
+                <span class="point-core">V10</span>
+                <span class="point-tooltip">Подлопаточная область слева, VIII межреберье по лопаточной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 26%; top: 78%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V11">
+                <span class="point-core">V11</span>
+                <span class="point-tooltip">Базальный отдел справа, IX межреберье по лопаточной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 74%; top: 78%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V12">
+                <span class="point-core">V12</span>
+                <span class="point-tooltip">Базальный отдел слева, IX межреберье по лопаточной линии</span>
+              </div>
+
+              <!-- Бронхиальное дыхание сзади (пособие, стр. 36): C7 и межлопаточное пространство Th3–Th4 -->
+              <div class="auscultation-point group-bronchial" style="left: 50%; top: 14%; display: none;" data-projection="posterior" data-group="bronchial" data-point="P-B1">
+                <span class="point-core">B1</span>
+                <span class="point-tooltip">Остистый отросток VII шейного позвонка (C7, vertebra prominens)</span>
+              </div>
+              <div class="auscultation-point group-bronchial" style="left: 50%; top: 34%; display: none;" data-projection="posterior" data-group="bronchial" data-point="P-B2">
+                <span class="point-core">B2</span>
+                <span class="point-tooltip">Межлопаточное пространство по срединной линии (Th3–Th4, бифуркация трахеи сзади)</span>
+              </div>
+
+              <!-- ================= БОКОВАЯ ГРУППА ТОЧЕК (Сбоку) ================= -->
+              <!-- Везикулярное дыхание сбоку (пособие, рис. 5, стр. 31): среднеподмышечная линия с IV по VI м/р -->
+              <div class="auscultation-point group-vesicular" style="left: 50%; top: 37%; display: none;" data-projection="lateral" data-group="vesicular" data-point="L-V1">
+                <span class="point-core">L1</span>
+                <span class="point-tooltip">IV межреберье по среднеподмышечной линии (linea axillaris media)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 49%; top: 50%; display: none;" data-projection="lateral" data-group="vesicular" data-point="L-V2">
+                <span class="point-core">L2</span>
+                <span class="point-tooltip">V межреберье по среднеподмышечной линии (linea axillaris media)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 47%; top: 63%; display: none;" data-projection="lateral" data-group="vesicular" data-point="L-V3">
+                <span class="point-core">L3</span>
+                <span class="point-tooltip">VI межреберье по среднеподмышечной линии (linea axillaris media)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Нижняя легенда -->
+          <div class="xray-legend-bar">
+            <div class="legend-item" id="legendItemVesicular">
+              <span class="legend-dot vesicular"></span>
+              <span id="legendTextVesicular"><strong>Везикулярное дыхание:</strong> 8 симметричных точек спереди (верхушки, ключицы, I–III м/р по среднеключичной линии)</span>
+            </div>
+            <div class="legend-item" id="legendItemBronchial">
+              <span class="legend-dot bronchial"></span>
+              <span id="legendTextBronchial"><strong>Бронхиальное дыхание:</strong> 3 точки по срединной линии (гортань, трахея, рукоятка грудины)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая колонка: Меню выбора типа дыхания, плеер и клиническая справка -->
+        <div class="auscultation-sidebar">
+
+          <!-- Меню выбора типа дыхания -->
+          <div class="type-selector-card">
+            <div class="selector-section-title">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                <polyline points="2 17 12 22 22 17"/>
+                <polyline points="2 12 12 17 22 12"/>
+              </svg>
+              <span>Выбор типа дыхания для выслушивания</span>
+            </div>
+
+            <!-- Группа 1: Везикулярное -->
+            <div style="font-size: 0.78rem; font-weight: 700; color: #059669; margin-bottom: 0.4rem;">
+              ГРУППА 1: ВЕЗИКУЛЯРНОЕ ДЫХАНИЕ (ЛЕГОЧНЫЕ ПОЛЯ)
+            </div>
+            <div class="breathing-types-list">
+              <!-- Основное -->
+              <button type="button" class="breathing-type-btn active" data-type="vesicular-normal" data-group="vesicular">
+                <div class="type-btn-meta">
+                  <span>Везикулярное дыхание (норма)</span>
+                  <span class="type-btn-desc">Мягкий дующий шум «ф-ф-ф», выдох слышен на 1/3</span>
+                </div>
+                <span class="type-btn-badge">Норма</span>
+              </button>
+
+              <!-- Вариант 1 -->
+              <button type="button" class="breathing-type-btn" data-type="vesicular-increased" data-group="vesicular">
+                <div class="type-btn-meta">
+                  <span>1. Усиленное везикулярное</span>
+                  <span class="type-btn-desc">Физиологическое усиление при нагрузке, у астеников</span>
+                </div>
+                <span class="type-btn-badge">Вариант 1</span>
+              </button>
+
+              <!-- Вариант 2 -->
+              <button type="button" class="breathing-type-btn" data-type="vesicular-decreased" data-group="vesicular">
+                <div class="type-btn-meta">
+                  <span>2. Ослабленное везикулярное</span>
+                  <span class="type-btn-desc">У гиперстеников, при утолщении грудной стенки</span>
+                </div>
+                <span class="type-btn-badge">Вариант 2</span>
+              </button>
+
+              <!-- Вариант 3 -->
+              <button type="button" class="breathing-type-btn" data-type="vesicular-puerile" data-group="vesicular">
+                <div class="type-btn-meta">
+                  <span>3. Пуэрильное дыхание у подростков</span>
+                  <span class="type-btn-desc">Более громкий и продленный выдох (до 12–14 лет)</span>
+                </div>
+                <span class="type-btn-badge">Вариант 3</span>
+              </button>
+            </div>
+
+            <!-- Группа 2: Бронхиальное -->
+            <div style="font-size: 0.78rem; font-weight: 700; color: #0284c7; margin-bottom: 0.4rem;">
+              ГРУППА 2: БРОНХИАЛЬНОЕ ДЫХАНИЕ (КРУПНЫЕ ПУТИ)
+            </div>
+            <div class="breathing-types-list" style="margin-bottom: 0;">
+              <button type="button" class="breathing-type-btn bronchial-theme" data-type="bronchial-normal" data-group="bronchial">
+                <div class="type-btn-meta">
+                  <span>Физиологическое бронхиальное</span>
+                  <span class="type-btn-desc">Грубый трубный шум «х-х-х», выдох длиннее вдоха</span>
+                </div>
+                <span class="type-btn-badge">Трахея/Рукоятка</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Интерактивный плеер аускультации -->
+          <div class="auscultation-player-card">
+            <div class="player-main-ctrls">
+              <button id="playBreathBtn" type="button" class="play-toggle-btn" title="Воспроизвести / остановить дыхание">
+                <!-- Play SVG -->
+                <svg id="playIcon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+                <!-- Pause SVG -->
+                <svg id="pauseIcon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="display: none;">
+                  <rect x="6" y="4" width="4" height="16"/>
+                  <rect x="14" y="4" width="4" height="16"/>
+                </svg>
+              </button>
+
+              <div class="player-status-info">
+                <div id="playerTitle" style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem;">Везикулярное дыхание (норма)</div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span id="playerPhaseBadge" class="player-phase-badge phase-inhale">Вдох (Inspirium)</span>
+                  <span id="playerTimer" style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">00:00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Визуализатор дыхательного цикла -->
+            <div class="breath-wave-container">
+              <canvas id="breathCanvas" class="breath-canvas"></canvas>
+            </div>
+
+            <!-- Ползунок громкости -->
+            <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted);">
+              <span>Громкость звука:</span>
+              <input id="volumeSlider" type="range" min="0" max="100" value="80" style="accent-color: var(--med-teal-600); width: 140px; cursor: pointer;">
+            </div>
+          </div>
+
+          <!-- Клиническая справка по выбранному дыханию -->
+          <div class="clinical-info-card">
+            <div id="infoCardTitle" class="clinical-info-title">Клиническая характеристика: Везикулярное дыхание</div>
+            <div class="clinical-info-grid">
+              <div class="info-param">
+                <span class="info-param-label">Топография точек:</span>
+                <span id="infoParamPoints" class="info-param-val">Симметрично над всей поверхностью легких (точки V1–V10).</span>
+              </div>
+              <div class="info-param">
+                <span class="info-param-label">Акустическая формула:</span>
+                <span id="infoParamFormula" class="info-param-val">Слышен весь вдох и только начальная 1/3 выдоха (соотношение 3 : 1). Мягкий шум, напоминающий звук «ф».</span>
+              </div>
+              <div class="info-param">
+                <span class="info-param-label">Механизм возникновения:</span>
+                <span id="infoParamMechanism" class="info-param-val">Колебания эластичных альвеолярных стенок при их быстром растяжении поступающим воздухом во время вдоха.</span>
+              </div>
+              <div class="info-param">
+                <span class="info-param-label">Физиологические условия:</span>
+                <span id="infoParamConditions" class="info-param-val">Норма у здоровых взрослых людей при спокойном дыхании.</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Вкладка 2: Патологии дыхательной системы ================= -->
+    <section id="panel-pathologies" class="tab-panel" role="tabpanel">
+      <div class="panel-hero">
+        <div class="panel-hero-content">
+          <h2>Патологии дыхательной системы</h2>
+          <p>Клинико-рентгенологические синдромы по материалам учебных пособий кафедры пропедевтики: рентгенограммы, оригинальные определения, диагностические критерии и характерные аускультативные звуки.</p>
+        </div>
+        <div class="hero-symbol">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Панель фильтров и поиска -->
+      <div class="pathologies-toolbar">
+        <div class="pathology-filter-pills" role="tablist">
+          <button type="button" class="filter-pill-btn active" data-filter="all">Все синдромы</button>
+          <button type="button" class="filter-pill-btn" data-filter="bronchi">Поражение бронхов</button>
+          <button type="button" class="filter-pill-btn" data-filter="parenchyma">Поражение паренхимы легких</button>
+          <button type="button" class="filter-pill-btn" data-filter="pleura">Поражение плевры</button>
+        </div>
+        <div class="pathology-search-wrapper">
+          <svg class="pathology-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="syndromeCardSearch" class="pathology-search-input" placeholder="Поиск по названию...">
+        </div>
+      </div>
+
+      <!-- Сетка превью-карточек синдромов с рентгенограммами и затемненной подложкой -->
+      <div class="syndromes-preview-grid" id="syndromesPreviewGrid">
+        
+        <!-- 1. Бронхитический синдром -->
+        <div class="syndrome-card-preview" data-id="bronchitic" data-category="bronchi">
+          <div class="syndrome-card-media">
+            <img src="image/Бронхитический синдром.jpg" alt="Бронхитический синдром" loading="lazy">
+            <div class="syndrome-card-overlay">
+              <span class="syndrome-category-chip">Поражение бронхов</span>
+              <h3 class="syndrome-card-name">Бронхитический синдром</h3>
+              <div class="syndrome-card-badges">
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Рентгенограмма</span>
+                </span>
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  </svg>
+                  <span>Звук</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Синдром бронхиальной обструкции -->
+        <div class="syndrome-card-preview" data-id="obstruction" data-category="bronchi">
+          <div class="syndrome-card-media">
+            <img src="image/Синдром бронхиальной обструкции.jpeg" alt="Синдром бронхиальной обструкции" loading="lazy">
+            <div class="syndrome-card-overlay">
+              <span class="syndrome-category-chip">Поражение бронхов</span>
+              <h3 class="syndrome-card-name">Синдром бронхиальной обструкции</h3>
+              <div class="syndrome-card-badges">
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Рентгенограмма</span>
+                </span>
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  </svg>
+                  <span>Звук</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Синдром уплотнения легочной ткани воспалительного генеза -->
+        <div class="syndrome-card-preview" data-id="consolidation_inflam" data-category="parenchyma">
+          <div class="syndrome-card-media">
+            <img src="image/Синдром уплотнения легочной ткани воспалительного генеза.jpg" alt="Синдром уплотнения воспалительного генеза" loading="lazy">
+            <div class="syndrome-card-overlay">
+              <span class="syndrome-category-chip">Поражение паренхимы</span>
+              <h3 class="syndrome-card-name">Синдром уплотнения легочной ткани воспалительного генеза</h3>
+              <div class="syndrome-card-badges">
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Рентгенограмма</span>
+                </span>
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  </svg>
+                  <span>Звук</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Синдром уплотнения легочной ткани невоспалительного генеза (ателектаз) -->
+        <div class="syndrome-card-preview" data-id="atelectasis" data-category="parenchyma">
+          <div class="syndrome-card-media">
+            <img src="image/Синдром уплотнения легочной ткани невоспалительного генеза (ателектаз).jpg" alt="Синдром ателектаза" loading="lazy">
+            <div class="syndrome-card-overlay">
+              <span class="syndrome-category-chip">Поражение паренхимы</span>
+              <h3 class="syndrome-card-name">Синдром уплотнения легочной ткани невоспалительного генеза (ателектаз)</h3>
+              <div class="syndrome-card-badges">
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Рентгенограмма</span>
+                </span>
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  </svg>
+                  <span>Звук</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Синдром эмфиземы легких -->
+        <div class="syndrome-card-preview" data-id="emphysema" data-category="parenchyma">
+          <div class="syndrome-card-media">
+            <img src="image/Синдром эмфиземы легких.jpg" alt="Синдром эмфиземы легких" loading="lazy">
+            <div class="syndrome-card-overlay">
+              <span class="syndrome-category-chip">Поражение паренхимы</span>
+              <h3 class="syndrome-card-name">Синдром эмфиземы легких</h3>
+              <div class="syndrome-card-badges">
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Рентгенограмма</span>
+                </span>
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  </svg>
+                  <span>Звук</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Синдром идиопатического интерстициального пневмонита (альвеолита) -->
+        <div class="syndrome-card-preview" data-id="alveolitis" data-category="parenchyma">
+          <div class="syndrome-card-media">
+            <img src="image/Синдром идиопатического интерстициального пневмонита (альвеолита).jpeg" alt="Интерстициальный пневмонит" loading="lazy">
+            <div class="syndrome-card-overlay">
+              <span class="syndrome-category-chip">Поражение паренхимы</span>
+              <h3 class="syndrome-card-name">Синдром идиопатического интерстициального пневмонита (альвеолита)</h3>
+              <div class="syndrome-card-badges">
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Рентгенограмма</span>
+                </span>
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  </svg>
+                  <span>Звук</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Синдром полости в легком -->
+        <div class="syndrome-card-preview" data-id="cavity" data-category="parenchyma">
+          <div class="syndrome-card-media">
+            <img src="image/Синдром полости в легком.png" alt="Синдром полости в легком" loading="lazy">
+            <div class="syndrome-card-overlay">
+              <span class="syndrome-category-chip">Поражение паренхимы</span>
+              <h3 class="syndrome-card-name">Синдром полости в легком</h3>
+              <div class="syndrome-card-badges">
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Рентгенограмма</span>
+                </span>
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  </svg>
+                  <span>Звук</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Синдром изменений в легких при левожелудочковой недостаточности -->
+        <div class="syndrome-card-preview" data-id="lv_failure" data-category="parenchyma">
+          <div class="syndrome-card-media">
+            <img src="image/Синдром изменений в легких при левожелудочковой недостаточности.jpg" alt="Изменения при левожелудочковой недостаточности" loading="lazy">
+            <div class="syndrome-card-overlay">
+              <span class="syndrome-category-chip">Поражение паренхимы</span>
+              <h3 class="syndrome-card-name">Синдром изменений в легких при левожелудочковой недостаточности</h3>
+              <div class="syndrome-card-badges">
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Рентгенограмма</span>
+                </span>
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  </svg>
+                  <span>Звук</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. Синдром гидроторакса -->
+        <div class="syndrome-card-preview" data-id="hydrothorax" data-category="pleura">
+          <div class="syndrome-card-media">
+            <img src="image/Синдром гидроторакса.jpg" alt="Синдром гидроторакса" loading="lazy">
+            <div class="syndrome-card-overlay">
+              <span class="syndrome-category-chip">Поражение плевры</span>
+              <h3 class="syndrome-card-name">Синдром гидроторакса</h3>
+              <div class="syndrome-card-badges">
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Рентгенограмма</span>
+                </span>
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  </svg>
+                  <span>Звук</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. Синдром фибринозного плеврита («сухой» плеврит) -->
+        <div class="syndrome-card-preview" data-id="dry_pleurisy" data-category="pleura">
+          <div class="syndrome-card-media">
+            <img src="image/Синдром фибринозного плеврита («сухой» плеврит).jpg" alt="Фибринозный плеврит" loading="lazy">
+            <div class="syndrome-card-overlay">
+              <span class="syndrome-category-chip">Поражение плевры</span>
+              <h3 class="syndrome-card-name">Синдром фибринозного плеврита («сухой» плеврит)</h3>
+              <div class="syndrome-card-badges">
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Рентгенограмма</span>
+                </span>
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  </svg>
+                  <span>Звук</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. Синдром пневмоторакса -->
+        <div class="syndrome-card-preview" data-id="pneumothorax" data-category="pleura">
+          <div class="syndrome-card-media">
+            <img src="image/Синдром пневмоторакса.jpg" alt="Синдром пневмоторакса" loading="lazy">
+            <div class="syndrome-card-overlay">
+              <span class="syndrome-category-chip">Поражение плевры</span>
+              <h3 class="syndrome-card-name">Синдром пневмоторакса</h3>
+              <div class="syndrome-card-badges">
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Рентгенограмма</span>
+                </span>
+                <span class="syndrome-feature-badge">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  </svg>
+                  <span>Звук</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Модальное окно статьи синдрома (открывается при клике на карточку с анимацией) -->
+      <div id="syndromeModalOverlay" class="syndrome-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalSynTitle">
+        <div class="syndrome-modal-dialog">
+          
+          <!-- Шапка модального окна -->
+          <div class="syndrome-modal-header">
+            <div class="modal-header-text">
+              <span id="modalSynCategory" class="modal-category-badge">Поражение бронхов</span>
+              <h3 id="modalSynTitle" class="syndrome-modal-title">Бронхитический синдром</h3>
+            </div>
+            <button type="button" id="syndromeModalClose" class="syndrome-modal-close" aria-label="Закрыть">&times;</button>
+          </div>
+
+          <!-- Первое, что написано в синдроме: Определение из методички -->
+          <div class="syndrome-definition-lead">
+            <strong>Определение:</strong>
+            <span id="modalSynDefinition">Острое или хроническое диффузное воспаление слизистой оболочки бронхов.</span>
+          </div>
+
+          <!-- Навигационные подвкладки внутри статьи -->
+          <div class="syndrome-modal-tabs" role="tablist">
+            <button type="button" class="modal-tab-btn active" data-subtab="criteria">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 11l3 3L22 4"/>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+              <span>Диагностические критерии</span>
+            </button>
+            <button type="button" class="modal-tab-btn" data-subtab="xray">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <span>Рентгенограмма</span>
+            </button>
+            <button type="button" class="modal-tab-btn" data-subtab="sound">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              </svg>
+              <span>Аускультативный звук</span>
+            </button>
+          </div>
+
+          <!-- Содержимое статьи -->
+          <div class="syndrome-modal-body">
+            
+            <!-- Подпанель: Диагностические критерии (без номеров) -->
+            <div id="modalSubpanelCriteria" class="modal-subpanel active">
+              <div class="criteria-grid-clean">
+                <div class="criteria-card-clean">
+                  <div class="criteria-card-clean-head">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    <span>Жалобы пациента</span>
+                  </div>
+                  <div id="modalParamComplaints" class="criteria-card-clean-body"></div>
+                </div>
+
+                <div class="criteria-card-clean">
+                  <div class="criteria-card-clean-head">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    <span>Данные осмотра</span>
+                  </div>
+                  <div id="modalParamInspection" class="criteria-card-clean-body"></div>
+                </div>
+
+                <div class="criteria-card-clean">
+                  <div class="criteria-card-clean-head">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/>
+                      <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/>
+                      <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/>
+                      <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+                    </svg>
+                    <span>Пальпация грудной клетки</span>
+                  </div>
+                  <div id="modalParamPalpation" class="criteria-card-clean-body"></div>
+                </div>
+
+                <div class="criteria-card-clean">
+                  <div class="criteria-card-clean-head">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="9"/>
+                      <line x1="12" y1="3" x2="12" y2="7"/>
+                      <line x1="12" y1="17" x2="12" y2="21"/>
+                    </svg>
+                    <span>Перкуссия легких</span>
+                  </div>
+                  <div id="modalParamPercussion" class="criteria-card-clean-body"></div>
+                </div>
+
+                <div class="criteria-card-clean">
+                  <div class="criteria-card-clean-head">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                      <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                    </svg>
+                    <span>Аускультация легких</span>
+                  </div>
+                  <div id="modalParamAuscultation" class="criteria-card-clean-body"></div>
+                </div>
+
+                <div class="criteria-card-clean">
+                  <div class="criteria-card-clean-head">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    <span>Дополнительные исследования</span>
+                  </div>
+                  <div id="modalParamAdditional" class="criteria-card-clean-body"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Подпанель: Рентгенограмма (БЕЗ названий файлов!) -->
+            <div id="modalSubpanelXray" class="modal-subpanel">
+              <div class="syndrome-modal-xray-wrap">
+                <div class="xray-clean-frame">
+                  <div class="xray-clean-view" id="modalXrayImgWrap">
+                    <img id="modalXrayImage" src="image/Бронхитический синдром.jpg" alt="Рентгенограмма синдрома">
+                  </div>
+                  <div class="xray-clean-toolbar">
+                    <button id="modalXrayInvertBtn" type="button" class="xray-btn" title="Инвертировать цвета">
+                      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/>
+                      </svg>
+                      <span>Инверсия</span>
+                    </button>
+                    <button id="modalXrayZoomBtn" type="button" class="xray-btn" title="Открыть полноразмерно">
+                      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 3 21 3 21 9"/>
+                        <polyline points="9 21 3 21 3 15"/>
+                        <line x1="21" y1="3" x2="14" y2="10"/>
+                        <line x1="3" y1="21" x2="10" y2="14"/>
+                      </svg>
+                      <span>Увеличить</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="xray-clean-criteria-box">
+                  <div class="xray-clean-criteria-title">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2"/>
+                      <circle cx="8.5" cy="8.5" r="1.5"/>
+                      <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                    <span>Рентгенологические диагностические критерии</span>
+                  </div>
+                  <div id="modalXrayDescription" class="xray-clean-criteria-text"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Подпанель: Аускультативный звук -->
+            <div id="modalSubpanelSound" class="modal-subpanel">
+              <div class="syndrome-modal-sound-wrap">
+                <div class="sound-clean-player-box">
+                  <div class="sound-clean-top">
+                    <button id="modalPlaySoundBtn" type="button" class="syndrome-play-btn" title="Слушать аускультативный звук">
+                      <svg id="modalPlayIcon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                      </svg>
+                      <svg id="modalPauseIcon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor" style="display: none;">
+                        <rect x="6" y="4" width="4" height="16"/>
+                        <rect x="14" y="4" width="4" height="16"/>
+                      </svg>
+                    </button>
+
+                    <div style="flex: 1;">
+                      <div id="modalSoundTitle" class="sound-clean-title">Жесткое дыхание и рассеянные сухие хрипы</div>
+                      <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+                        <span id="modalSoundFileStatus" class="sound-file-status simulated">
+                          <span style="width: 7px; height: 7px; border-radius: 50%; background: currentColor;"></span>
+                          <span id="modalSoundStatusText">Готов к воспроизведению</span>
+                        </span>
+                        <span id="modalSoundPhaseBadge" class="player-phase-badge">Дыхательный шум</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="sound-wave-large-box">
+                    <canvas id="modalSoundCanvas" style="width: 100%; height: 100%; display: block;"></canvas>
+                  </div>
+
+                  <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; color: var(--text-muted); margin-top: 0.75rem;">
+                    <span>Громкость воспроизведения:</span>
+                    <input id="modalVolumeSlider" type="range" min="0" max="100" value="85" style="accent-color: var(--med-teal-600); width: 160px; cursor: pointer;">
+                  </div>
+                </div>
+
+                <div class="sound-explanation-card">
+                  <div class="sound-explanation-title">Патогенез и акустическая характеристика звука:</div>
+                  <div id="modalSoundDescription" class="sound-explanation-body"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Нижняя панель навигации по синдромам -->
+          <div class="syndrome-modal-footer">
+            <button type="button" id="modalPrevSynBtn" class="modal-nav-btn">
+              <span>&larr;</span>
+              <span>Предыдущий синдром</span>
+            </button>
+            <button type="button" id="modalNextSynBtn" class="modal-nav-btn">
+              <span>Следующий синдром</span>
+              <span>&rarr;</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ================= Вкладка 3: Тест ================= -->
+    <section id="panel-test" class="tab-panel" role="tabpanel">
+      <div class="panel-hero">
+        <div class="panel-hero-content">
+          <h2>Тестирование знаний: Пульмонология</h2>
+          <p>Интерактивный комплекс самоконтроля в двух взаимодополняющих форматах: слепое распознавание аускультативных шумов на слух и теоретический тест по материалам методических пособий кафедры пропедевтики.</p>
+        </div>
+        <div class="hero-symbol">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <path d="m9 15 2 2 4-4"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Переключатель двух форматов тестирования -->
+      <div class="test-format-toolbar">
+        <div class="test-format-tabs" role="tablist" aria-label="Выбор формата тестирования">
+          <button type="button" class="test-format-btn active" data-test-mode="audio" aria-selected="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+            </svg>
+            <span>1. Слепое прослушивание</span>
+          </button>
+          <button type="button" class="test-format-btn" data-test-mode="theory" aria-selected="false">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <path d="m9 15 2 2 4-4"/>
+            </svg>
+            <span>2. Теоретический тест</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= ФОРМАТ 1: СЛЕПОЕ ПРОСЛУШИВАНИЕ ================= -->
+      <div id="testSectionAudio" class="test-format-panel active">
+        <!-- Статистика слепого тестирования -->
+        <div class="test-stats-bar">
+          <div class="test-stats-info">
+            <span class="test-stats-badge">🎧 Слепое тестирование на слух</span>
+            <span class="test-stats-counter">Правильно: <strong id="blindStatsScore">0</strong> из <span id="blindStatsTotal">0</span> (<span id="blindStatsPercent">0%</span>)</span>
+          </div>
+          <button type="button" id="blindResetStatsBtn" class="test-reset-btn" title="Сбросить счетчик">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
+            <span>Сбросить статистику</span>
+          </button>
+        </div>
+
+        <!-- Слепой аудиоплеер -->
+        <div class="blind-player-card">
+          <div class="blind-player-header">
+            <div class="blind-player-avatar">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+              </svg>
+            </div>
+            <div style="flex: 1;">
+              <div class="blind-player-title" id="blindAudioLabel">Случайная аудиозапись дыхания</div>
+              <div class="blind-player-hint">Внимательно прослушайте респираторный шум, соотношение фаз вдоха/выдоха и побочные звуки</div>
+            </div>
+            <span id="blindPhaseBadge" class="player-phase-badge">Готов к воспроизведению</span>
+          </div>
+
+          <!-- Элементы управления звуком -->
+          <div class="blind-player-controls">
+            <button id="blindPlayBtn" type="button" class="blind-play-btn" title="Воспроизвести / остановить запись">
+              <svg id="blindPlayIcon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+              <svg id="blindPauseIcon" viewBox="0 0 24 24" width="28" height="28" fill="currentColor" style="display: none;">
+                <rect x="6" y="4" width="4" height="16"/>
+                <rect x="14" y="4" width="4" height="16"/>
+              </svg>
+            </button>
+
+            <!-- Канвас визуализации респираторной волны -->
+            <div class="blind-wave-wrapper">
+              <canvas id="blindAudioCanvas" class="blind-canvas"></canvas>
+            </div>
+
+            <!-- Громкость -->
+            <div class="blind-volume-wrap">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              </svg>
+              <input id="blindVolumeSlider" type="range" min="0" max="100" value="85" style="accent-color: var(--med-teal-600); width: 100px; cursor: pointer;" title="Громкость">
+            </div>
+          </div>
+        </div>
+
+        <!-- Вопрос и варианты выбора -->
+        <div class="quiz-card" style="margin-top: 1.5rem;">
+          <div class="quiz-question">
+            К какому синдрому или физиологическому состоянию относится прослушанный дыхательный шум?
+          </div>
+          <div id="blindOptionsGrid" class="quiz-options-grid">
+            <!-- Динамические варианты ответа генерируются в app.js -->
+          </div>
+
+          <!-- Разбор ответа и переход дальше -->
+          <div id="blindFeedbackBox" class="test-feedback-box" style="display: none;">
+            <div class="feedback-head">
+              <span id="blindFeedbackBadge" class="feedback-badge correct">Верно</span>
+              <h4 id="blindFeedbackTitle" class="feedback-title">Название феномена</h4>
+            </div>
+            <p id="blindFeedbackDesc" class="feedback-body">Акустическое и клиническое объяснение...</p>
+            <div class="feedback-action">
+              <button type="button" id="blindNextBtn" class="test-next-btn">
+                <span>Следующая аудиозапись</span>
+                <span>&rarr;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= ФОРМАТ 2: ТЕОРЕТИЧЕСКИЙ ТЕСТ ================= -->
+      <div id="testSectionTheory" class="test-format-panel">
+        <!-- Полоса прогресса и счетчик -->
+        <div class="theory-progress-card">
+          <div class="theory-progress-head">
+            <span id="theoryProgressText" class="theory-progress-counter">Вопрос 1 из 15</span>
+            <span class="theory-score-tag">Правильно: <strong id="theoryScoreVal">0</strong></span>
+          </div>
+          <div class="theory-progress-track">
+            <div id="theoryProgressBar" class="theory-progress-fill" style="width: 6.6%;"></div>
+          </div>
+        </div>
+
+        <!-- Карточка активного вопроса -->
+        <div id="theoryQuestionCard" class="quiz-card">
+          <div id="theoryQuestionText" class="quiz-question">Текст вопроса загружается...</div>
+          <div id="theoryOptionsList" class="quiz-options-list">
+            <!-- Варианты ответов генерируются в app.js -->
+          </div>
+
+          <!-- Пояснение к ответу -->
+          <div id="theoryFeedbackBox" class="test-feedback-box" style="display: none;">
+            <div class="feedback-head">
+              <span id="theoryFeedbackBadge" class="feedback-badge correct">Верно</span>
+              <h4 id="theoryFeedbackTitle" class="feedback-title">Обоснование по методическому пособию</h4>
+            </div>
+            <p id="theoryFeedbackDesc" class="feedback-body">Подробное клинико-патогенетическое объяснение...</p>
+            <div class="feedback-action">
+              <button type="button" id="theoryNextBtn" class="test-next-btn">
+                <span>Следующий вопрос</span>
+                <span>&rarr;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Финальный экран результатов теста -->
+        <div id="theoryResultCard" class="theory-result-card" style="display: none;">
+          <div class="theory-result-icon">
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <h3 class="theory-result-title">Тестирование завершено</h3>
+          <div class="theory-result-score">
+            Ваш результат: <strong id="finalScoreVal">0</strong> из <span id="finalTotalVal">15</span> (<span id="finalPercentVal">0%</span>)
+          </div>
+          <p id="finalFeedbackText" class="theory-result-desc">
+            Оценка уровня знаний по физикальной диагностике и синдромам поражения органов дыхания.
+          </p>
+          <button type="button" id="theoryRestartBtn" class="test-restart-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+              <path d="M3 3v5h5"/>
+            </svg>
+            <span>Пройти тест заново</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Вкладка 4: О проекте ================= -->
+    <section id="panel-about" class="tab-panel" role="tabpanel">
+      <div class="panel-hero">
+        <div class="panel-hero-content">
+          <h2>О проекте</h2>
+          <p>Сведения о разработчике образовательной платформы, открытой лицензии MIT и академических источниках информации.</p>
+        </div>
+        <div class="hero-symbol">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Карточка автора проекта -->
+      <div class="author-profile-card">
+        <div class="author-header">
+          <div class="author-avatar">ЯС</div>
+          <div class="author-meta">
+            <h3>Ситдиков Ян</h3>
+            <span class="author-role">Создатель и разработчик платформы</span>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.95rem;">
+              Разработка интерактивной веб-платформы по дисциплине «Пропедевтика внутренних болезней: заболевания органов дыхания».
+            </p>
+          </div>
+        </div>
+
+        <!-- Контактные данные и ссылки -->
+        <div class="contacts-bar">
+          <!-- ВКонтакте -->
+          <a href="https://vk.ru/eternal_ahudis" target="_blank" rel="noopener noreferrer" class="contact-chip">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M15.684 0H8.316C2.992 0 0 2.992 0 8.316v7.368C0 21.008 2.992 24 8.316 24h7.368C21.008 24 24 21.008 24 15.684V8.316C24 2.992 21.008 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.524-2.05-1.716-1.037-1.01-1.498-1.144-1.755-1.144-.359 0-.462.103-.462.597v1.547c0 .42-.134.673-1.246.673-1.836 0-3.874-1.115-5.312-3.187-2.164-3.04-2.753-5.33-2.753-5.795 0-.256.102-.493.596-.493h1.745c.445 0 .61.205.782.688.857 2.49 2.296 4.675 2.894 4.675.223 0 .326-.102.326-.663V10.87c-.07-1.196-.697-1.299-.697-1.724 0-.205.172-.41.446-.41h2.74c.376 0 .512.205.512.646v3.483c0 .376.17.512.282.512.223 0 .41-.136.829-.555 1.29-1.442 2.215-3.666 2.215-3.666.12-.256.326-.492.77-.492h1.744c.523 0 .637.269.524.646-.222.99-2.277 3.9-2.38 4.07-.205.342-.29.496 0 .89.206.273.882.862 1.334 1.385.83 1.003 1.464 1.84 1.636 2.42.17.58-.086.87-.856.87z"/>
+            </svg>
+            <span>VK: eternal_ahudis</span>
+          </a>
+
+          <!-- GitHub -->
+          <a href="https://github.com/Eternal-ahudis" target="_blank" rel="noopener noreferrer" class="contact-chip">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+            <span>GitHub: Eternal-ahudis</span>
+          </a>
+
+          <!-- Gmail -->
+          <div class="contact-chip" style="cursor: pointer;" onclick="copyText('sitdikof.jan@gmail.com', 'Email sitdikof.jan@gmail.com скопирован')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <span>sitdikof.jan@gmail.com</span>
+            <button class="copy-btn" title="Копировать email" type="button">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Источники проекта (Методические материалы) -->
+      <div class="sources-card">
+        <div class="card-header-clean">
+          <div class="card-header-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="card-title">Использованные источники и методические пособия</div>
+            <div class="card-subtitle">Материалы кафедры пропедевтики внутренних болезней</div>
+          </div>
+        </div>
+
+        <div class="sources-list">
+          <!-- Источник 1 -->
+          <div class="source-item">
+            <div class="source-number">1</div>
+            <div class="source-details">
+              <h4>Клинико-рентгенологические синдромы поражения дыхательной системы</h4>
+              <div class="source-meta">
+                Учебное пособие для студентов медицинских вузов. Авторы: Волкова Э. Г., Колядич М. И. Под редакцией профессора И. И. Шапошника. Издательство Южно-Уральского государственного медицинского университета (ЮУГМУ Минздрава России), Кафедра пропедевтики внутренних болезней.
+              </div>
+              <div>
+                <span class="source-tag">Учебное пособие</span>
+                <a href="docs/legochnyesindromymetodichka.pdf" target="_blank" class="source-link">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                  </svg>
+                  <span>Открыть документ (PDF)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Источник 2 -->
+          <div class="source-item">
+            <div class="source-number">2</div>
+            <div class="source-details">
+              <h4>Патогенез симптомов при заболеваниях внутренних органов</h4>
+              <div class="source-meta">
+                Учебное пособие для студентов, обучающихся по специальностям «Лечебное дело» и «Педиатрия». Авторы: И. И. Шапошник, Н. В. Макарова, Н. К. Вереина и др. Под редакцией профессора И. И. Шапошника. ФГБОУ ВО ЮУГМУ Минздрава России, Кафедра пропедевтики внутренних болезней.
+              </div>
+              <div>
+                <span class="source-tag">Учебное пособие</span>
+                <a href="docs/patogenezsimptomov_print.pdf" target="_blank" class="source-link">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                  </svg>
+                  <span>Открыть документ (PDF)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Источник 3 -->
+          <div class="source-item">
+            <div class="source-number">3</div>
+            <div class="source-details">
+              <h4>Пропедевтика внутренних болезней. Часть 1</h4>
+              <div class="source-meta">
+                Учебный журнал для студентов и врачей // «Медицинский вестник», № 1 (139). Методические рекомендации по исследованию дыхательной системы, пальпации, перкуссии и аускультации.
+              </div>
+              <div>
+                <span class="source-tag">Методические рекомендации</span>
+                <a href="docs/MP_1.pdf" target="_blank" class="source-link">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                  </svg>
+                  <span>Открыть документ (PDF)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Лицензия MIT -->
+      <div class="license-card">
+        <div class="card-header-clean">
+          <div class="card-header-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <div>
+            <div class="card-title">Лицензия проекта (MIT License)</div>
+            <div class="card-subtitle">Открытое программное обеспечение для образовательных целей</div>
+          </div>
+        </div>
+        <p class="card-body">
+          Данная платформа распространяется на условиях открытой лицензии MIT. Программный код свободен для некоммерческого и академического использования, модификации и распространения.
+        </p>
+        <pre class="license-pre">MIT License
+
+Copyright (c) 2026 Ситдиков Ян (Sitdikov Yan)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</pre>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Подвал (Footer) -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div>
+        <span>© 2026 Ситдиков Ян • Платформа «PROPEDIK»</span>
+      </div>
+      <div>
+        <span>Разработано на основе открытых клинических стандартов • MIT License</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Модальное окно просмотра рентгенограмм -->
+  <div id="imageModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div id="modalTitle" class="modal-title">Просмотр рентгенограммы</div>
+        <button id="modalClose" class="modal-close-btn" aria-label="Закрыть">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img id="modalImage" src="" alt="Рентгенограмма легких">
+      </div>
+    </div>
+  </div>
+
+  <!-- Всплывающее уведомление (Toast) -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Скрипт платформы -->
+  <script src="js/app.js?v=2"></script>
+</body>
+</html>
