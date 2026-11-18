@@ -1,0 +1,77 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="512" height="512">
+  <defs>
+    <linearGradient id="afChrome" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#e2e8f0"/>
+      <stop offset="75%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+    <linearGradient id="afTube" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf"/>
+      <stop offset="35%" stop-color="#0d9488"/>
+      <stop offset="75%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#115e59"/>
+    </linearGradient>
+    <radialGradient id="afDiaphragm" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="45%" stop-color="#0d9488"/>
+      <stop offset="85%" stop-color="#042f2e"/>
+      <stop offset="100%" stop-color="#021c1b"/>
+    </radialGradient>
+    <filter id="afDrop" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <g filter="url(#afDrop)" transform="translate(54, 54) scale(0.185) translate(-256, -256)">
+    <!-- Acoustic wave rings radiating from diaphragm -->
+    <circle cx="342" cy="328" r="68" fill="none" stroke="#2dd4bf" stroke-width="2.5" stroke-opacity="0.45" stroke-dasharray="6 5"/>
+    <circle cx="342" cy="328" r="86" fill="none" stroke="#14b8a6" stroke-width="2" stroke-opacity="0.3" stroke-dasharray="8 6"/>
+
+    <!-- Ear Tips -->
+    <ellipse cx="184" cy="114" rx="10" ry="8" fill="#1e293b" stroke="url(#afChrome)" stroke-width="2" transform="rotate(-22 184 114)"/>
+    <ellipse cx="328" cy="114" rx="10" ry="8" fill="#1e293b" stroke="url(#afChrome)" stroke-width="2" transform="rotate(22 328 114)"/>
+
+    <!-- Left Binaural Metallic Tube -->
+    <path d="M184 118 C184 165 210 205 248 220" 
+          fill="none" stroke="url(#afChrome)" stroke-width="14" stroke-linecap="round"/>
+    
+    <!-- Right Binaural Metallic Tube -->
+    <path d="M328 118 C328 165 302 205 264 220" 
+          fill="none" stroke="url(#afChrome)" stroke-width="14" stroke-linecap="round"/>
+
+    <!-- Tension Spring Arch -->
+    <path d="M200 160 Q256 174 312 160" 
+          fill="none" stroke="#334155" stroke-width="6" stroke-linecap="round"/>
+    <path d="M200 160 Q256 174 312 160" 
+          fill="none" stroke="url(#afChrome)" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Binaural Y-Junction piece -->
+    <path d="M246 216 L266 216 L262 236 L250 236 Z" fill="url(#afChrome)"/>
+
+    <!-- Flexible Tubing -->
+    <path d="M256 234 C256 280 185 305 160 355 C132 410 170 452 225 448 C280 444 290 385 334 344" 
+          fill="none" stroke="#042022" stroke-width="24" stroke-linecap="round"/>
+    <path d="M256 234 C256 280 185 305 160 355 C132 410 170 452 225 448 C280 444 290 385 334 344" 
+          fill="none" stroke="url(#afTube)" stroke-width="17" stroke-linecap="round"/>
+    <path d="M256 234 C256 280 185 305 160 355 C132 410 170 452 225 448 C280 444 290 385 334 344" 
+          fill="none" stroke="#5eead4" stroke-width="3.5" stroke-linecap="round" stroke-opacity="0.5"/>
+
+    <!-- Chestpiece Stem -->
+    <path d="M326 352 L338 338" stroke="url(#afChrome)" stroke-width="16" stroke-linecap="round"/>
+
+    <!-- Acoustic Chestpiece -->
+    <circle cx="342" cy="328" r="50" fill="url(#afChrome)"/>
+    <circle cx="342" cy="328" r="43" fill="#0f172a"/>
+    <circle cx="342" cy="328" r="41" fill="url(#afChrome)"/>
+    <circle cx="342" cy="328" r="37" fill="#0f172a"/>
+    <circle cx="342" cy="328" r="35" fill="url(#afDiaphragm)"/>
+    <circle cx="342" cy="328" r="23" fill="none" stroke="#5eead4" stroke-width="2" stroke-opacity="0.7"/>
+    <circle cx="342" cy="328" r="9" fill="url(#afChrome)"/>
+    <circle cx="342" cy="328" r="4" fill="#0d9488"/>
+
+    <!-- Highlight Reflection -->
+    <path d="M318 308 A 30 30 0 0 1 358 302" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" opacity="0.8"/>
+  </g>
+</svg>
