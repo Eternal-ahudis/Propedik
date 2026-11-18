@@ -12,7 +12,11 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="PROPEDIK">
 
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="stylesheet" href="css/style.css?v=5">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -23,10 +27,14 @@
   <header class="app-header">
     <div class="header-container">
       <a href="#auscultation" class="brand-wrapper">
-        <div class="brand-icon">
-          <!-- Медицинский символ: пульс и стетоскоп -->
+        <div class="brand-icon" title="PROPEDIK">
+          <!-- Фонендоскоп / стетоскоп -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon">
-            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            <path d="M4.5 3v5a3.5 3.5 0 0 0 7 0V3"/>
+            <path d="M8 11.5v3a4.5 4.5 0 0 0 9 0v-2"/>
+            <circle cx="17" cy="10.5" r="2.5" fill="currentColor" fill-opacity="0.25"/>
+            <path d="M3.5 3h2"/>
+            <path d="M10.5 3h2"/>
           </svg>
         </div>
         <div class="brand-text">
@@ -941,17 +949,17 @@
         <!-- Полоса прогресса и счетчик -->
         <div class="theory-progress-card">
           <div class="theory-progress-head">
-            <span id="theoryProgressText" class="theory-progress-counter">Вопрос 1 из 15</span>
-            <div class="theory-head-right" style="display: flex; align-items: center; gap: 0.65rem;">
+            <div class="theory-head-left">
+              <span id="theoryProgressText" class="theory-progress-counter">Вопрос 1 из 15</span>
               <span class="theory-score-tag">Правильно: <strong id="theoryScoreVal">0</strong></span>
-              <button type="button" id="theoryResetProgressBtn" class="blind-reset-btn" title="Сбросить прогресс и начать заново">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-                  <path d="M3 3v5h5"/>
-                </svg>
-                <span>Сбросить тест</span>
-              </button>
             </div>
+            <button type="button" id="theoryResetProgressBtn" class="theory-reset-btn" title="Сбросить прогресс и начать заново">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+              </svg>
+              <span>Сбросить тест</span>
+            </button>
           </div>
           <div class="theory-progress-track">
             <div id="theoryProgressBar" class="theory-progress-fill" style="width: 6.6%;"></div>
@@ -1445,8 +1453,11 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</pre>
     <button type="button" class="mobile-nav-item active" data-target="panel-auscultation">
       <div class="mobile-nav-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          <path d="M4.5 3v5a3.5 3.5 0 0 0 7 0V3"/>
+          <path d="M8 11.5v3a4.5 4.5 0 0 0 9 0v-2"/>
+          <circle cx="17" cy="10.5" r="2.5"/>
+          <path d="M3.5 3h2"/>
+          <path d="M10.5 3h2"/>
         </svg>
       </div>
       <span class="mobile-nav-title">Точки</span>
