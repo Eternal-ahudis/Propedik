@@ -760,48 +760,36 @@ document.addEventListener('DOMContentLoaded', () => {
   // Аудиоплеер для модального окна синдрома
   let currentSyndromeAudio = null;
   let isSyndromePlaying = false;
-  let hasRealAudioFile = false;
   let synSynthAnimId = null;
   let synGainNode = null;
   let synMasterGain = null;
   let synFilterNode = null;
   let synNoiseNode = null;
+  let synAudioCtx = null;
 
   function checkAudioFileAvailability(filePath, syndromeName) {
-    const testAudio = new Audio();
-    hasRealAudioFile = false;
-
-    testAudio.addEventListener('canplaythrough', () => {
-      hasRealAudioFile = true;
-      if (modalSoundFileStatus) {
-        modalSoundFileStatus.className = 'sound-file-status found';
-        if (modalSoundStatusText) modalSoundStatusText.textContent = 'Аудиозапись найдена и готова к воспроизведению';
-      }
-    });
-
-    testAudio.addEventListener('error', () => {
-      hasRealAudioFile = false;
-      if (modalSoundFileStatus) {
-        modalSoundFileStatus.className = 'sound-file-status simulated';
-        if (modalSoundStatusText) modalSoundStatusText.textContent = 'Акустическая симуляция феномена';
-      }
-    });
-
-    testAudio.src = filePath;
+    if (!modalSoundFileStatus || !modalSoundStatusText) return;
+    if (filePath) {
+      modalSoundFileStatus.className = 'sound-file-status found';
+      modalSoundStatusText.textContent = 'Аудиозапись готова к воспроизведению';
+    } else {
+      modalSoundFileStatus.className = 'sound-file-status simulated';
+      modalSoundStatusText.textContent = 'Акустическая симуляция феномена';
+    }
   }
 
   function toggleSyndromePlayback() {
+    triggerHaptic(12);
     if (isSyndromePlaying) {
       stopSyndromeAudio();
       showToast('Воспроизведение звука остановлено');
     } else {
       startSyndromeAudio();
-      showToast('Воспроизведение аускультативного звука');
+      showToast('Воспроизведение аускультативного шума');
     }
   }
 
   function startSyndromeAudio() {
-    initAudioContext();
     const syn = syndromesData[currentSyndromeKey];
     if (!syn) return;
 
@@ -809,18 +797,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalPlayIcon) modalPlayIcon.style.display = 'none';
     if (modalPauseIcon) modalPauseIcon.style.display = 'block';
     if (modalPlaySoundBtn) modalPlaySoundBtn.classList.add('playing');
+    if (modalSoundPhaseBadge) {
+      modalSoundPhaseBadge.textContent = 'Воспроизведение патологического шума';
+      modalSoundPhaseBadge.className = 'player-phase-badge phase-inhale';
+    }
 
-    if (hasRealAudioFile) {
+    if (syn.soundAudioFile) {
       if (!currentSyndromeAudio) {
-        currentSyndromeAudio = new Audio(syn.soundAudioFile);
+        currentSyndromeAudio = new Audio();
         currentSyndromeAudio.loop = true;
       }
-      const vol = modalVolumeSlider ? modalVolumeSlider.value / 100 : 0.85;
+      currentSyndromeAudio.src = syn.soundAudioFile;
+      const vol = modalVolumeSlider ? parseFloat(modalVolumeSlider.value) / 100 : 0.85;
       currentSyndromeAudio.volume = vol;
-      currentSyndromeAudio.play().catch(() => {
+      currentSyndromeAudio.play().then(() => {
+        runSyndromeVisualizerLoop(syn);
+      }).catch(err => {
+        console.warn('Pathology audio file play fallback to synth:', err);
         startSyndromeSynthesis(syn);
+        runSyndromeVisualizerLoop(syn);
       });
-      runSyndromeVisualizerLoop(syn);
     } else {
       startSyndromeSynthesis(syn);
       runSyndromeVisualizerLoop(syn);
@@ -828,72 +824,83 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function startSyndromeSynthesis(syn) {
-    if (!audioCtx) return;
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!synAudioCtx) {
+        synAudioCtx = new AudioCtx();
+      }
+      if (synAudioCtx.state === 'suspended') {
+        synAudioCtx.resume();
+      }
 
-    const bufferSize = audioCtx.sampleRate * 2;
-    const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-    const output = noiseBuffer.getChannelData(0);
+      const bufferSize = synAudioCtx.sampleRate * 2;
+      const noiseBuffer = synAudioCtx.createBuffer(1, bufferSize, synAudioCtx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
 
-    for (let i = 0; i < bufferSize; i++) {
-      output[i] = (Math.random() * 2 - 1) * 0.4;
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = (Math.random() * 2 - 1) * 0.35;
+      }
+
+      synNoiseNode = synAudioCtx.createBufferSource();
+      synNoiseNode.buffer = noiseBuffer;
+      synNoiseNode.loop = true;
+
+      synFilterNode = synAudioCtx.createBiquadFilter();
+      synGainNode = synAudioCtx.createGain();
+      synMasterGain = synAudioCtx.createGain();
+
+      const vol = modalVolumeSlider ? parseFloat(modalVolumeSlider.value) / 100 : 0.85;
+      synMasterGain.gain.value = vol;
+
+      switch (syn.synthType) {
+        case 'pleural_rub':
+          synFilterNode.type = 'bandpass';
+          synFilterNode.frequency.value = 520;
+          synFilterNode.Q.value = 3.5;
+          break;
+        case 'consolidation':
+          synFilterNode.type = 'bandpass';
+          synFilterNode.frequency.value = 750;
+          synFilterNode.Q.value = 2.8;
+          break;
+        case 'obstruction':
+          synFilterNode.type = 'bandpass';
+          synFilterNode.frequency.value = 850;
+          synFilterNode.Q.value = 4.2;
+          break;
+        case 'crepitation':
+        case 'velcro':
+          synFilterNode.type = 'bandpass';
+          synFilterNode.frequency.value = 650;
+          synFilterNode.Q.value = 2.4;
+          break;
+        case 'amphoric':
+          synFilterNode.type = 'bandpass';
+          synFilterNode.frequency.value = 320;
+          synFilterNode.Q.value = 5.0;
+          break;
+        case 'silent':
+          synFilterNode.type = 'lowpass';
+          synFilterNode.frequency.value = 150;
+          synFilterNode.Q.value = 1.0;
+          break;
+        default:
+          synFilterNode.type = 'lowpass';
+          synFilterNode.frequency.value = 450;
+          synFilterNode.Q.value = 1.5;
+          break;
+      }
+
+      synNoiseNode.connect(synFilterNode);
+      synFilterNode.connect(synGainNode);
+      synGainNode.connect(synMasterGain);
+      synMasterGain.connect(synAudioCtx.destination);
+
+      synNoiseNode.start(0);
+    } catch (e) {
+      console.warn('Syndrome synth error:', e);
     }
-
-    synNoiseNode = audioCtx.createBufferSource();
-    synNoiseNode.buffer = noiseBuffer;
-    synNoiseNode.loop = true;
-
-    synFilterNode = audioCtx.createBiquadFilter();
-    synGainNode = audioCtx.createGain();
-    synMasterGain = audioCtx.createGain();
-
-    const vol = modalVolumeSlider ? modalVolumeSlider.value / 100 : 0.85;
-    synMasterGain.gain.value = vol;
-
-    switch (syn.synthType) {
-      case 'pleural_rub':
-        synFilterNode.type = 'bandpass';
-        synFilterNode.frequency.value = 520;
-        synFilterNode.Q.value = 3.5;
-        break;
-      case 'consolidation':
-        synFilterNode.type = 'bandpass';
-        synFilterNode.frequency.value = 750;
-        synFilterNode.Q.value = 2.8;
-        break;
-      case 'obstruction':
-        synFilterNode.type = 'bandpass';
-        synFilterNode.frequency.value = 850;
-        synFilterNode.Q.value = 4.2;
-        break;
-      case 'crepitation':
-      case 'velcro':
-        synFilterNode.type = 'bandpass';
-        synFilterNode.frequency.value = 650;
-        synFilterNode.Q.value = 2.4;
-        break;
-      case 'amphoric':
-        synFilterNode.type = 'bandpass';
-        synFilterNode.frequency.value = 320;
-        synFilterNode.Q.value = 5.0;
-        break;
-      case 'silent':
-        synFilterNode.type = 'lowpass';
-        synFilterNode.frequency.value = 150;
-        synFilterNode.Q.value = 1.0;
-        break;
-      default:
-        synFilterNode.type = 'lowpass';
-        synFilterNode.frequency.value = 450;
-        synFilterNode.Q.value = 1.5;
-        break;
-    }
-
-    synNoiseNode.connect(synFilterNode);
-    synFilterNode.connect(synGainNode);
-    synGainNode.connect(synMasterGain);
-    synMasterGain.connect(audioCtx.destination);
-
-    synNoiseNode.start(0);
   }
 
   function stopSyndromeAudio() {
@@ -903,14 +910,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modalPlaySoundBtn) modalPlaySoundBtn.classList.remove('playing');
 
     if (currentSyndromeAudio) {
-      currentSyndromeAudio.pause();
-      currentSyndromeAudio.currentTime = 0;
-      currentSyndromeAudio = null;
+      try {
+        currentSyndromeAudio.pause();
+        currentSyndromeAudio.currentTime = 0;
+      } catch (e) {}
     }
 
-    if (synGainNode && audioCtx) {
+    if (synGainNode && synAudioCtx) {
       try {
-        synGainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
+        synGainNode.gain.setTargetAtTime(0, synAudioCtx.currentTime, 0.05);
       } catch (e) {}
     }
 
@@ -940,8 +948,8 @@ document.addEventListener('DOMContentLoaded', () => {
     modalVolumeSlider.addEventListener('input', (e) => {
       const val = parseFloat(e.target.value) / 100;
       if (currentSyndromeAudio) currentSyndromeAudio.volume = val;
-      if (synMasterGain && audioCtx) {
-        synMasterGain.gain.setTargetAtTime(val, audioCtx.currentTime, 0.05);
+      if (synMasterGain && synAudioCtx) {
+        synMasterGain.gain.setTargetAtTime(val, synAudioCtx.currentTime, 0.05);
       }
     });
   }
@@ -954,7 +962,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const progress = cycle / 3.6;
     const intensity = Math.sin(progress * Math.PI);
 
-    if (synGainNode && audioCtx) {
+    if (synGainNode && synAudioCtx) {
       let g = intensity * 0.8;
       if (syn.synthType === 'silent') g *= 0.12;
       else if (syn.synthType === 'pleural_rub') {
