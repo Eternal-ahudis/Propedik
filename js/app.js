@@ -720,7 +720,7 @@ document.addEventListener('DOMContentLoaded', () => {
       xrayDesc: 'Диффузное повышение прозрачности легочных полей («светлые поля»), обеднение и истончение легочного рисунка на периферии, низкое стояние и уплощение диафрагмы с острыми синусами, «капельное» сердце.',
       soundTitle: 'Резко ослабленное везикулярное дыхание',
       soundDesc: 'Глухой, едва различимый респираторный шум вследствие критической утраты эластичности альвеол и малой амплитуды их колебаний, с удлиненным выдохом.',
-      soundAudioFile: 'audio/Синдром эмфиземы легких.mp3',
+      soundAudioFile: 'audio/Патологически ослабленное везикулярное.mp3',
       synthType: 'emphysema'
     },
 
@@ -738,9 +738,9 @@ document.addEventListener('DOMContentLoaded', () => {
       xrayImg: 'image/Синдром идиопатического интерстициального пневмонита (альвеолита).jpeg',
       xrayDesc: 'Двустороннее симметричное диффузное усиление интерстициального легочного рисунка по сетчатому типу, преимущественно в базальных отделах, уменьшение объемов легких, симптом «сотового легкого».',
       soundTitle: 'Конечно-инспираторная крепитация («треск целлофана» / Velcro)',
-      soundDesc: 'Высокочастотная сухая крепитация на пике вдоха, обусловленная раскрытием ригидных фиброзированных альвеолярных стенок при максимальном расширении легких.',
-      soundAudioFile: 'audio/Синдром идиопатического интерстициального пневмонита (альвеолита).mp3',
-      synthType: 'velcro'
+      soundDesc: 'Высокочастотная сухая крепитация на высоте глубокого вдоха, обусловленная раскрытием ригидных фиброзированных альвеолярных стенок при максимальном расширении легких.',
+      soundAudioFile: 'audio/Крепитация.mp3',
+      synthType: 'crepitation'
     },
 
     'cavity': {
@@ -951,8 +951,11 @@ document.addEventListener('DOMContentLoaded', () => {
     stopSyndromeAudio();
     checkAudioFileAvailability(syn.soundAudioFile, syn.name);
 
-    // Активация окна с анимацией
+    // Активация окна с анимацией и сбросом скролла
     if (syndromeModalOverlay) {
+      syndromeModalOverlay.scrollTop = 0;
+      const modalBody = syndromeModalOverlay.querySelector('.syndrome-modal-body');
+      if (modalBody) modalBody.scrollTop = 0;
       syndromeModalOverlay.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -1167,10 +1170,11 @@ document.addEventListener('DOMContentLoaded', () => {
         synFilterNode.frequency.value = 850;
         synFilterNode.Q.value = 4.2;
         break;
+      case 'crepitation':
       case 'velcro':
-        synFilterNode.type = 'highpass';
-        synFilterNode.frequency.value = 950;
-        synFilterNode.Q.value = 3.0;
+        synFilterNode.type = 'bandpass';
+        synFilterNode.frequency.value = 650;
+        synFilterNode.Q.value = 2.4;
         break;
       case 'amphoric':
         synFilterNode.type = 'bandpass';
@@ -1261,9 +1265,16 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (syn.synthType === 'pleural_rub') {
         const friction = Math.sin(now * 0.03) > 0.2 ? 1.0 : 0.25;
         g *= friction;
-      } else if (syn.synthType === 'velcro') {
-        const crackle = Math.random() > 0.6 ? 1.2 : 0.2;
-        g *= crackle;
+      } else if (syn.synthType === 'velcro' || syn.synthType === 'crepitation') {
+        // Мелкопузырчатая сухая крепитация строго на высоте вдоха
+        if (progress >= 0.35 && progress <= 0.52) {
+          const pop = Math.random() > 0.45 ? (0.6 + Math.random() * 0.4) : 0.15;
+          g = intensity * pop;
+        } else if (progress < 0.35) {
+          g = intensity * 0.25;
+        } else {
+          g = intensity * 0.08;
+        }
       }
       synGainNode.gain.setTargetAtTime(Math.max(0, g), audioCtx.currentTime, 0.03);
     }
@@ -1493,8 +1504,8 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 'alveolitis',
       title: 'Синдром альвеолита (интерстициального пневмонита)',
       isNormal: false,
-      soundAudioFile: null,
-      synthType: 'velcro',
+      soundAudioFile: 'audio/Крепитация.mp3',
+      synthType: 'crepitation',
       explanation: 'При фиброзирующем альвеолите фиброзная перестройка межальвеолярных стенок сопровождается формированием нежной двусторонней крепитации типа «липучки» (Velcro) или «треска целлофана» в конце вдоха преимущественно в заднебазальных сегментах.'
     }
   ];
@@ -1715,10 +1726,11 @@ document.addEventListener('DOMContentLoaded', () => {
         blindFilterNode.frequency.value = 880;
         blindFilterNode.Q.value = 4.5;
         break;
+      case 'crepitation':
       case 'velcro':
-        blindFilterNode.type = 'highpass';
-        blindFilterNode.frequency.value = 920;
-        blindFilterNode.Q.value = 3.0;
+        blindFilterNode.type = 'bandpass';
+        blindFilterNode.frequency.value = 650;
+        blindFilterNode.Q.value = 2.4;
         break;
       case 'amphoric':
         blindFilterNode.type = 'bandpass';
@@ -1792,9 +1804,16 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (item.synthType === 'pleural_rub') {
         const friction = Math.sin(now * 0.03) > 0.2 ? 1.0 : 0.25;
         g *= friction;
-      } else if (item.synthType === 'velcro') {
-        const crackle = Math.random() > 0.6 ? 1.2 : 0.2;
-        g *= crackle;
+      } else if (item.synthType === 'velcro' || item.synthType === 'crepitation') {
+        // Мелкопузырчатая сухая крепитация строго на высоте вдоха
+        if (progress >= 0.35 && progress <= 0.52) {
+          const pop = Math.random() > 0.45 ? (0.6 + Math.random() * 0.4) : 0.15;
+          g = intensity * pop;
+        } else if (progress < 0.35) {
+          g = intensity * 0.25;
+        } else {
+          g = intensity * 0.08;
+        }
       }
       blindGainNode.gain.setTargetAtTime(Math.max(0, g), audioCtx.currentTime, 0.03);
     }
