@@ -1,12 +1,4 @@
-/**
- * PROPEDIK — Clinical Propedeutics Database
- * База клинических данных кафедры пропедевтики:
- * 1. Аускультативные шумы (дыхание)
- * 2. Топографические проекции и анатомические точки (hotspots)
- * 3. Атлас патологических синдромов
- * 4. База аудиозаписей для слепого тестирования
- * 5. Банк теоретических вопросов
- */
+// База клинических данных тренажера PROPEDIK
 window.PROPEDIK_DATA = {
   "breathingDatabase": {
     "vesicular-normal": {
@@ -23,7 +15,8 @@ window.PROPEDIK_DATA = {
         "cutoffExhale": 280,
         "volume": 0.85,
         "type": "vesicular"
-      }
+      },
+      "audioFile": "audio/vesicular_normal.mp3"
     },
     "vesicular-increased": {
       "title": "Усиленное везикулярное дыхание",
@@ -39,7 +32,8 @@ window.PROPEDIK_DATA = {
         "cutoffExhale": 360,
         "volume": 1,
         "type": "vesicular"
-      }
+      },
+      "audioFile": "audio/vesicular_puerile.mp3"
     },
     "vesicular-decreased": {
       "title": "Ослабленное везикулярное дыхание",
@@ -55,7 +49,8 @@ window.PROPEDIK_DATA = {
         "cutoffExhale": 190,
         "volume": 0.45,
         "type": "vesicular"
-      }
+      },
+      "audioFile": "audio/vesicular_decreased.mp3"
     },
     "vesicular-puerile": {
       "title": "Пуэрильное дыхание у подростков",
@@ -71,7 +66,8 @@ window.PROPEDIK_DATA = {
         "cutoffExhale": 480,
         "volume": 0.95,
         "type": "puerile"
-      }
+      },
+      "audioFile": "audio/vesicular_puerile.mp3"
     },
     "bronchial-normal": {
       "title": "Физиологическое бронхиальное дыхание",
@@ -87,7 +83,8 @@ window.PROPEDIK_DATA = {
         "cutoffExhale": 950,
         "volume": 0.95,
         "type": "bronchial"
-      }
+      },
+      "audioFile": "audio/bronchial_normal.mp3"
     }
   },
   "projectionDatabase": {

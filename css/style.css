@@ -1338,7 +1338,7 @@ body {
   border-radius: 50%;
   border: 2px solid;
   opacity: 0.8;
-  animation: pulsePoint 2.2s infinite ease-out;
+  animation: pulsePoint 3.8s infinite ease-in-out;
   pointer-events: none;
 }
 

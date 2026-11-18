@@ -150,176 +150,108 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ================= 3. ИНТЕРАКТИВНАЯ АУСКУЛЬТАЦИЯ ЛЕГКИХ =================
-  let currentProjection = 'anterior';
-  let currentGroup = 'vesicular';
-  let currentPointId = null;
+  const projectionButtons = document.querySelectorAll('.proj-tab-btn');
+  const xrayHeaderTitle = document.getElementById('xrayHeaderTitle');
+  const legendTextVesicular = document.getElementById('legendTextVesicular');
+  const legendTextBronchial = document.getElementById('legendTextBronchial');
 
-  const xrayImage = document.getElementById('xrayImage');
-  const hotspotsGroup = document.getElementById('hotspotsGroup');
-  const projectionButtons = document.querySelectorAll('.proj-btn');
-  const breathingTypeButtons = document.querySelectorAll('.breath-btn');
-  const toggleLabelsBtn = document.getElementById('toggleLabelsBtn');
-  const toggleInvertBtn = document.getElementById('toggleInvertBtn');
-
+  const breathingTypeButtons = document.querySelectorAll('.breathing-type-btn');
+  const auscultationPoints = document.querySelectorAll('.auscultation-point');
+  const playerTitle = document.getElementById('playerTitle');
+  const infoCardTitle = document.getElementById('infoCardTitle');
   const infoParamPoints = document.getElementById('infoParamPoints');
-  const infoParamAuscultation = document.getElementById('infoParamAuscultation');
   const infoParamFormula = document.getElementById('infoParamFormula');
   const infoParamMechanism = document.getElementById('infoParamMechanism');
   const infoParamConditions = document.getElementById('infoParamConditions');
-  const infoParamSoundProfile = document.getElementById('infoParamSoundProfile');
+  const toggleLabelsBtn = document.getElementById('toggleLabelsBtn');
+  const toggleInvertBtn = document.getElementById('toggleInvertBtn');
+  const xrayCanvasBox = document.getElementById('xrayCanvasBox');
+  const xrayImage = document.getElementById('xrayImage');
 
-  function renderSvgHotspots() {
-    if (!hotspotsGroup) return;
-    const proj = projectionDatabase[currentProjection];
-    if (!proj) return;
+  let currentProjection = 'anterior';
+  let currentBreathingKey = 'vesicular-normal';
 
-    hotspotsGroup.innerHTML = '';
-    const points = proj.hotspots || proj.points || [];
+  // Обновление видимости точек: точки прошлой проекции исчезают полностью
+  function updatePointsDisplay() {
+    const bData = breathingDatabase[currentBreathingKey];
+    const currentGroup = bData ? bData.group : 'vesicular';
 
-    points.forEach(pt => {
-      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      const isGrpActive = pt.group === currentGroup;
-      g.setAttribute('class', 'svg-hotspot group-' + pt.group + (isGrpActive ? ' active' : ''));
-      g.setAttribute('data-point-id', pt.id);
-      g.setAttribute('data-group', pt.group);
-      g.setAttribute('tabindex', '0');
-      g.setAttribute('role', 'button');
-      const lbl = pt.label || pt.num || '';
-      const tip = pt.tooltip || pt.name || '';
-      g.setAttribute('aria-label', lbl + '. ' + tip);
+    auscultationPoints.forEach(pt => {
+      const ptProj = pt.getAttribute('data-projection');
+      const ptGroup = pt.getAttribute('data-group');
 
-      // Coordinates in projectionDatabase are already in 0..1000 viewBox scale
-      const cx = (pt.x <= 100) ? pt.x * 10 : pt.x;
-      const cy = (pt.y <= 100) ? pt.y * 10 : pt.y;
-
-      const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      pulse.setAttribute('class', 'hotspot-pulse');
-      pulse.setAttribute('cx', cx);
-      pulse.setAttribute('cy', cy);
-      pulse.setAttribute('r', '22');
-
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('class', 'hotspot-circle');
-      circle.setAttribute('cx', cx);
-      circle.setAttribute('cy', cy);
-      circle.setAttribute('r', '15');
-
-      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      text.setAttribute('class', 'hotspot-label');
-      text.setAttribute('x', cx);
-      text.setAttribute('y', cy + 4);
-      text.textContent = lbl;
-
-      const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
-      const groupName = pt.group === 'vesicular' ? 'Везикулярное' : 'Бронхиальное';
-      title.textContent = lbl + '. ' + tip + ' (' + groupName + ')';
-
-      g.appendChild(pulse);
-      g.appendChild(circle);
-      g.appendChild(text);
-      g.appendChild(title);
-
-      g.addEventListener('click', (e) => {
-        e.stopPropagation();
-        triggerHaptic(12);
-        selectHotspot(pt);
-      });
-
-      hotspotsGroup.appendChild(g);
+      if (ptProj === currentProjection) {
+        // Точка текущей проекции видна
+        pt.style.display = 'flex';
+        const isAct = ptGroup === currentGroup;
+        pt.classList.toggle('group-active', isAct);
+      } else {
+        // Точки других проекций полностью скрываются
+        pt.style.display = 'none';
+        pt.classList.remove('group-active');
+      }
     });
   }
 
-  function selectHotspot(pt) {
-    currentPointId = pt.id;
-    const lbl = pt.label || pt.num || '';
-    const tip = pt.tooltip || pt.name || '';
-    const groupName = pt.group === 'vesicular' ? 'Везикулярное' : 'Бронхиальное';
-    showToast(lbl + '. ' + tip + ' (' + groupName + ')');
+  // Обновление клинической топографии точек
+  function updateClinicalTopography() {
+    const bData = breathingDatabase[currentBreathingKey];
+    const currentGroup = bData ? bData.group : 'vesicular';
+    const projData = projectionDatabase[currentProjection];
 
-    if (hotspotsGroup) {
-      const allG = hotspotsGroup.querySelectorAll('.svg-hotspot');
-      allG.forEach(g => {
-        const isMatch = g.getAttribute('data-point-id') === pt.id;
-        g.classList.toggle('selected', isMatch);
-      });
-    }
-
-    if (pt.group && pt.group !== currentGroup) {
-      selectBreathingType(pt.group === 'vesicular' ? 'vesicular-normal' : 'bronchial-physio');
-    } else {
-      updateInfoCards();
-    }
-  }
-
-  function updateInfoCards() {
-    const curTypeObj = breathingDatabase[currentBreathingType];
-    if (!curTypeObj) return;
-
-    if (infoParamPoints) {
+    if (infoParamPoints && projData) {
       infoParamPoints.textContent = currentGroup === 'vesicular'
-        ? 'Все точки аускультации легких (передняя, задняя, боковые поверхности), кроме проекции крупных дыхательных путей.'
-        : 'Точки проекции гортани, трахеи, бифуркации трахеи (спереди рукоятка грудины, сзади C7–Th4 межлопаточная зона).';
-    }
-    if (infoParamAuscultation) infoParamAuscultation.textContent = curTypeObj.title;
-    if (infoParamFormula) infoParamFormula.textContent = curTypeObj.formula;
-    if (infoParamMechanism) infoParamMechanism.textContent = curTypeObj.mechanism;
-    if (infoParamConditions) infoParamConditions.textContent = curTypeObj.conditions;
-    if (infoParamSoundProfile) {
-      const aud = curTypeObj.audio;
-      infoParamSoundProfile.textContent = 'Длительность цикла: ' + aud.cycleDuration + 'с (вдох ' + Math.round(aud.inhaleRatio * 100) + '%, выдох ' + Math.round(aud.exhaleRatio * 100) + '%), фильтр: ' + (aud.type === 'bronchial' ? 'Bandpass ' : 'Lowpass ') + aud.cutoffInhale + 'Гц';
+        ? projData.topographyVesicular
+        : projData.topographyBronchial;
     }
   }
 
-  let currentBreathingType = 'vesicular-normal';
-
-  function selectBreathingType(typeKey) {
-    if (!breathingDatabase[typeKey]) return;
-    currentBreathingType = typeKey;
-    const typeObj = breathingDatabase[typeKey];
-    currentGroup = typeObj.group;
-
-    breathingTypeButtons.forEach(btn => {
-      const isSelected = btn.getAttribute('data-type') === typeKey;
-      btn.classList.toggle('active', isSelected);
-      btn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
-    });
-
-    if (hotspotsGroup) {
-      const allG = hotspotsGroup.querySelectorAll('.svg-hotspot');
-      allG.forEach(g => {
-        const grp = g.getAttribute('data-group');
-        g.classList.toggle('active', grp === currentGroup);
-      });
-    }
-
-    updateInfoCards();
-    if (isPlaying) {
-      updateAudioProfile(typeObj.audio);
-    }
-  }
-
+  // Переключение топографической проекции (Передняя / Задняя / Боковая)
   function setProjection(projKey) {
     if (!projectionDatabase[projKey]) return;
-    currentProjection = projKey;
-    const proj = projectionDatabase[projKey];
 
+    currentProjection = projKey;
+    const projData = projectionDatabase[projKey];
+
+    // 1. Обновление кнопок проекций
     projectionButtons.forEach(btn => {
       const isAct = btn.getAttribute('data-projection') === projKey;
       btn.classList.toggle('active', isAct);
       btn.setAttribute('aria-selected', isAct ? 'true' : 'false');
     });
 
-    const xrayHeaderTitle = document.getElementById('xrayHeaderTitle');
-    if (xrayHeaderTitle && (proj.xrayTitle || proj.name)) {
-      xrayHeaderTitle.textContent = proj.xrayTitle || proj.name;
+    // 2. Смена картинки с плавной анимацией
+    if (xrayImage && projData.imageSrc) {
+      xrayImage.classList.add('fade-transition');
+      setTimeout(() => {
+        xrayImage.src = projData.imageSrc;
+        if (xrayCanvasBox) xrayCanvasBox.classList.toggle('is-lateral', Boolean(projData.isLateral));
+        setTimeout(() => {
+          xrayImage.classList.remove('fade-transition');
+        }, 120);
+      }, 150);
+    } else if (xrayCanvasBox) {
+      xrayCanvasBox.classList.toggle('is-lateral', Boolean(projData.isLateral));
     }
 
-    if (xrayImage) {
-      xrayImage.src = proj.imageSrc || proj.image || 'image/normal_chest_xray.png';
-      xrayImage.alt = proj.name || proj.xrayTitle || 'Рентгенограмма легких';
+    // 3. Обновление заголовка вьювера
+    if (xrayHeaderTitle && projData.xrayTitle) {
+      xrayHeaderTitle.textContent = projData.xrayTitle;
     }
 
-    renderSvgHotspots();
+    // 4. Обновление легенды
+    if (legendTextVesicular && projData.legendVesicular) {
+      legendTextVesicular.innerHTML = projData.legendVesicular;
+    }
+    if (legendTextBronchial && projData.legendBronchial) {
+      legendTextBronchial.innerHTML = projData.legendBronchial;
+    }
+
+    // 5. Точки прошлой проекции исчезают, активные подсвечиваются
+    updatePointsDisplay();
+
+    // 6. Обновление клинической топографии
+    updateClinicalTopography();
   }
 
   projectionButtons.forEach(btn => {
@@ -330,6 +262,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Выбор типа дыхания
+  function selectBreathingType(key) {
+    const data = breathingDatabase[key];
+    if (!data) return;
+
+    currentBreathingKey = key;
+
+    breathingTypeButtons.forEach(btn => {
+      const isSelected = btn.getAttribute('data-type') === key;
+      btn.classList.toggle('active', isSelected);
+      btn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+    });
+
+    // Обновление подсветки точек в текущей проекции
+    updatePointsDisplay();
+
+    // Обновление метаданных плеера и справки
+    if (playerTitle) playerTitle.textContent = data.title;
+    if (infoCardTitle) infoCardTitle.textContent = 'Клиническая характеристика: ' + data.title;
+    if (infoParamFormula) infoParamFormula.textContent = data.formula;
+    if (infoParamMechanism) infoParamMechanism.textContent = data.mechanism;
+    if (infoParamConditions) infoParamConditions.textContent = data.conditions;
+
+    updateClinicalTopography();
+
+    // Если звук воспроизводится — сразу переключаем на выбранный тип
+    if (isPlaying) {
+      playBreathAudio();
+    }
+  }
+
   breathingTypeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       triggerHaptic(10);
@@ -338,30 +301,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Клик по точкам для отображения названия и подсказки
+  auscultationPoints.forEach(pt => {
+    pt.addEventListener('click', () => {
+      triggerHaptic(10);
+      const tt = pt.querySelector('.point-tooltip');
+      const core = pt.querySelector('.point-core');
+      if (tt && core) {
+        showToast(core.textContent + ': ' + tt.textContent);
+      }
+    });
+  });
+
+  if (toggleLabelsBtn && xrayCanvasBox) {
+    toggleLabelsBtn.addEventListener('click', () => {
+      triggerHaptic(8);
+      const isShowing = xrayCanvasBox.classList.toggle('show-labels');
+      toggleLabelsBtn.classList.toggle('active', isShowing);
+    });
+  }
+
   if (toggleInvertBtn && xrayImage) {
     toggleInvertBtn.addEventListener('click', () => {
       triggerHaptic(8);
-      const isInverted = xrayImage.classList.toggle('inverted');
+      const isInverted = xrayImage.classList.toggle('invert');
       toggleInvertBtn.classList.toggle('active', isInverted);
     });
   }
 
-  let labelsVisible = true;
-  if (toggleLabelsBtn && hotspotsGroup) {
-    toggleLabelsBtn.addEventListener('click', () => {
-      triggerHaptic(8);
-      labelsVisible = !labelsVisible;
-      toggleLabelsBtn.classList.toggle('active', !labelsVisible);
-      hotspotsGroup.style.display = labelsVisible ? 'block' : 'none';
-    });
-  }
-
-  // Аудиосинтезатор для вкладки 1
-  let audioCtx = null;
-  let noiseNode = null;
-  let filterNode = null;
-  let gainNode = null;
-  let masterGain = null;
+  // ================= 4. АУДИОДВИЖОК АУСКУЛЬТАЦИИ (ВОСПРОИЗВЕДЕНИЕ АУДИОЗАПИСЕЙ) =================
+  let breathAudioElement = null;
   let isPlaying = false;
   let animFrameId = null;
   let cycleStartTime = 0;
@@ -377,167 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const breathCanvas = document.getElementById('breathCanvas');
   const canvasCtx = breathCanvas ? breathCanvas.getContext('2d') : null;
 
-  function initAudioContext() {
-    if (!audioCtx) {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContextClass();
-
-      const bufferSize = audioCtx.sampleRate * 2;
-      const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-      const output = noiseBuffer.getChannelData(0);
-      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
-
-      for (let i = 0; i < bufferSize; i++) {
-        const white = Math.random() * 2 - 1;
-        b0 = 0.99886 * b0 + white * 0.0555179;
-        b1 = 0.99332 * b1 + white * 0.0750759;
-        b2 = 0.96900 * b2 + white * 0.1538520;
-        b3 = 0.86650 * b3 + white * 0.3104856;
-        b4 = 0.55000 * b4 + white * 0.5329522;
-        b5 = -0.7616 * b5 - white * 0.0168980;
-        output[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
-        b6 = white * 0.115926;
-      }
-
-      noiseNode = audioCtx.createBufferSource();
-      noiseNode.buffer = noiseBuffer;
-      noiseNode.loop = true;
-
-      filterNode = audioCtx.createBiquadFilter();
-      filterNode.type = 'lowpass';
-      filterNode.frequency.value = 400;
-      filterNode.Q.value = 1.2;
-
-      gainNode = audioCtx.createGain();
-      gainNode.gain.value = 0;
-
-      masterGain = audioCtx.createGain();
-      const currentVol = volumeSlider ? volumeSlider.value / 100 : 0.8;
-      masterGain.gain.value = currentVol;
-
-      noiseNode.connect(filterNode);
-      filterNode.connect(gainNode);
-      gainNode.connect(masterGain);
-      masterGain.connect(audioCtx.destination);
-
-      noiseNode.start(0);
-    }
-
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-  }
-
-  function updateAudioProfile(profile) {
-    if (!profile) return;
-    if (filterNode && audioCtx) {
-      filterNode.type = profile.type === 'bronchial' ? 'bandpass' : 'lowpass';
-      filterNode.Q.value = profile.type === 'bronchial' ? 2.5 : 1.2;
-    }
-  }
-
-  if (volumeSlider) {
-    volumeSlider.addEventListener('input', (e) => {
-      const val = parseFloat(e.target.value) / 100;
-      if (masterGain && audioCtx) {
-        masterGain.gain.setTargetAtTime(val, audioCtx.currentTime, 0.05);
-      }
-    });
-  }
-
-  function runBreathingLoop() {
-    if (!isPlaying) return;
-
-    const data = breathingDatabase[currentBreathingKey];
-    const profile = data.audio;
-    const cycleDuration = profile.cycleDuration;
-    const inhaleDuration = cycleDuration * profile.inhaleRatio;
-    const exhaleDuration = cycleDuration * profile.exhaleRatio;
-
-    const now = performance.now();
-    const cycleElapsed = ((now - cycleStartTime) / 1000) % cycleDuration;
-
-    let isInhale = cycleElapsed < inhaleDuration;
-    let phaseProgress = 0;
-    let breathIntensity = 0;
-
-    if (isInhale) {
-      phaseProgress = cycleElapsed / inhaleDuration;
-      breathIntensity = Math.sin(phaseProgress * Math.PI);
-      if (playerPhaseBadge) {
-        playerPhaseBadge.textContent = 'Вдох (Inspirium)';
-        playerPhaseBadge.className = 'player-phase-badge phase-inhale';
-      }
-      if (filterNode && audioCtx) {
-        filterNode.frequency.setTargetAtTime(profile.cutoffInhale, audioCtx.currentTime, 0.05);
-      }
-    } else {
-      phaseProgress = (cycleElapsed - inhaleDuration) / exhaleDuration;
-      if (profile.type === 'vesicular') {
-        const audiblePart = Math.max(0, 1 - phaseProgress * 2.8);
-        breathIntensity = Math.sin(phaseProgress * Math.PI) * audiblePart * 0.4;
-      } else if (profile.type === 'puerile') {
-        const audiblePart = Math.max(0, 1 - phaseProgress * 1.5);
-        breathIntensity = Math.sin(phaseProgress * Math.PI) * audiblePart * 0.75;
-      } else {
-        breathIntensity = Math.sin(phaseProgress * Math.PI) * 1.15;
-      }
-
-      if (playerPhaseBadge) {
-        playerPhaseBadge.textContent = 'Выдох (Exspirium)';
-        playerPhaseBadge.className = 'player-phase-badge phase-exhale';
-      }
-      if (filterNode && audioCtx) {
-        filterNode.frequency.setTargetAtTime(profile.cutoffExhale, audioCtx.currentTime, 0.05);
-      }
-    }
-
-    if (gainNode && audioCtx) {
-      const targetGain = Math.max(0, breathIntensity * profile.volume);
-      gainNode.gain.setTargetAtTime(targetGain, audioCtx.currentTime, 0.03);
-    }
-
-    drawBreathWave(cycleElapsed, cycleDuration, isInhale, breathIntensity, profile.type);
-    animFrameId = requestAnimationFrame(runBreathingLoop);
-  }
-
-  function drawBreathWave(cycleElapsed, cycleDuration, isInhale, intensity, soundType) {
-    if (!canvasCtx || !breathCanvas) return;
-
-    const w = breathCanvas.width = breathCanvas.offsetWidth;
-    const h = breathCanvas.height = breathCanvas.offsetHeight;
-
-    canvasCtx.clearRect(0, 0, w, h);
-
-    canvasCtx.strokeStyle = '#e2e8f0';
-    canvasCtx.lineWidth = 1;
-    canvasCtx.beginPath();
-    canvasCtx.moveTo(0, h / 2);
-    canvasCtx.lineTo(w, h / 2);
-    canvasCtx.stroke();
-
-    canvasCtx.lineWidth = 2.5;
-    canvasCtx.strokeStyle = soundType === 'bronchial' ? '#0284c7' : '#0d9488';
-    canvasCtx.beginPath();
-
-    const points = 80;
-    const step = w / points;
-
-    for (let i = 0; i <= points; i++) {
-      const x = i * step;
-      const progress = i / points;
-      const wave = Math.sin(progress * Math.PI * 4 + cycleElapsed * 1.8) * Math.sin(progress * Math.PI);
-      const noise = (Math.random() - 0.5) * 4 * intensity;
-      const y = (h / 2) - (wave * (h * 0.38) * intensity) + noise;
-
-      if (i === 0) canvasCtx.moveTo(x, y);
-      else canvasCtx.lineTo(x, y);
-    }
-    canvasCtx.stroke();
-  }
-
   function togglePlayback() {
-    initAudioContext();
+    triggerHaptic(12);
     isPlaying = !isPlaying;
 
     if (isPlaying) {
@@ -551,36 +361,177 @@ document.addEventListener('DOMContentLoaded', () => {
         elapsedSeconds++;
         const mins = String(Math.floor(elapsedSeconds / 60)).padStart(2, '0');
         const secs = String(elapsedSeconds % 60).padStart(2, '0');
-        if (playerTimer) playerTimer.textContent = `${mins}:${secs}`;
+        if (playerTimer) playerTimer.textContent = mins + ':' + secs;
       }, 1000);
 
-      runBreathingLoop();
+      playBreathAudio();
       showToast('Воспроизведение дыхания начато');
     } else {
-      if (playIcon) playIcon.style.display = 'block';
-      if (pauseIcon) pauseIcon.style.display = 'none';
-      if (playBreathBtn) playBreathBtn.classList.remove('playing');
-
-      if (gainNode && audioCtx) {
-        gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
-      }
-
-      cancelAnimationFrame(animFrameId);
-      clearInterval(timerInterval);
-
-      if (canvasCtx && breathCanvas) {
-        canvasCtx.clearRect(0, 0, breathCanvas.width, breathCanvas.height);
-      }
-      if (playerPhaseBadge) {
-        playerPhaseBadge.textContent = 'Остановлено';
-        playerPhaseBadge.className = 'player-phase-badge';
-      }
+      stopBreathAudio();
       showToast('Воспроизведение остановлено');
     }
   }
 
+  function playBreathAudio() {
+    const bData = breathingDatabase[currentBreathingKey];
+    if (!bData) return;
+
+    if (playerPhaseBadge) {
+      playerPhaseBadge.textContent = 'Воспроизведение аудиозаписи';
+      playerPhaseBadge.className = 'player-phase-badge phase-inhale';
+    }
+
+    if (!breathAudioElement) {
+      breathAudioElement = new Audio();
+      breathAudioElement.loop = true;
+    }
+
+    const currentVol = volumeSlider ? parseFloat(volumeSlider.value) / 100 : 0.8;
+    breathAudioElement.volume = currentVol;
+
+    if (bData.audioFile) {
+      breathAudioElement.src = bData.audioFile;
+      breathAudioElement.play().then(() => {
+        runBreathWaveLoop();
+      }).catch(err => {
+        console.warn('Audio file play fallback to synth:', err);
+        startBreathSynth(bData.audio);
+      });
+    } else {
+      startBreathSynth(bData.audio);
+    }
+  }
+
+  function stopBreathAudio() {
+    if (playIcon) playIcon.style.display = 'block';
+    if (pauseIcon) pauseIcon.style.display = 'none';
+    if (playBreathBtn) playBreathBtn.classList.remove('playing');
+
+    if (breathAudioElement) {
+      try {
+        breathAudioElement.pause();
+        breathAudioElement.currentTime = 0;
+      } catch (e) {}
+    }
+
+    stopBreathSynth();
+    cancelAnimationFrame(animFrameId);
+    clearInterval(timerInterval);
+
+    if (canvasCtx && breathCanvas) {
+      canvasCtx.clearRect(0, 0, breathCanvas.width, breathCanvas.height);
+    }
+    if (playerPhaseBadge) {
+      playerPhaseBadge.textContent = 'Остановлено';
+      playerPhaseBadge.className = 'player-phase-badge';
+    }
+  }
+
+  if (volumeSlider) {
+    volumeSlider.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value) / 100;
+      if (breathAudioElement) breathAudioElement.volume = val;
+      if (masterGain && audioCtx) masterGain.gain.setTargetAtTime(val, audioCtx.currentTime, 0.05);
+    });
+  }
+
   if (playBreathBtn) {
     playBreathBtn.addEventListener('click', togglePlayback);
+  }
+
+  // Плавная визуализация волны дыхания
+  function runBreathWaveLoop() {
+    if (!isPlaying) return;
+    if (!canvasCtx || !breathCanvas) return;
+
+    const w = breathCanvas.width = breathCanvas.offsetWidth;
+    const h = breathCanvas.height = breathCanvas.offsetHeight;
+
+    canvasCtx.clearRect(0, 0, w, h);
+    canvasCtx.strokeStyle = '#e2e8f0';
+    canvasCtx.lineWidth = 1;
+    canvasCtx.beginPath();
+    canvasCtx.moveTo(0, h / 2);
+    canvasCtx.lineTo(w, h / 2);
+    canvasCtx.stroke();
+
+    const bData = breathingDatabase[currentBreathingKey];
+    const isBronchial = bData && bData.group === 'bronchial';
+    canvasCtx.lineWidth = 2.5;
+    canvasCtx.strokeStyle = isBronchial ? '#0284c7' : '#0d9488';
+    canvasCtx.beginPath();
+
+    const points = 70;
+    const step = w / points;
+    const now = performance.now() * 0.002;
+
+    for (let i = 0; i <= points; i++) {
+      const x = i * step;
+      const progress = i / points;
+      const wave = Math.sin(progress * Math.PI * 4 + now * 1.5) * Math.sin(progress * Math.PI);
+      const noise = (Math.random() - 0.5) * 4;
+      const y = (h / 2) - (wave * (h * 0.35)) + noise;
+
+      if (i === 0) canvasCtx.moveTo(x, y);
+      else canvasCtx.lineTo(x, y);
+    }
+    canvasCtx.stroke();
+
+    animFrameId = requestAnimationFrame(runBreathWaveLoop);
+  }
+
+  // Web Audio синтезаторный фоллбэк
+  let audioCtx = null;
+  let noiseNode = null;
+  let filterNode = null;
+  let gainNode = null;
+  let masterGain = null;
+
+  function startBreathSynth(profile) {
+    try {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContextClass();
+        const bufferSize = audioCtx.sampleRate * 2;
+        const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = noiseBuffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = (Math.random() * 2 - 1) * 0.2;
+        }
+
+        noiseNode = audioCtx.createBufferSource();
+        noiseNode.buffer = noiseBuffer;
+        noiseNode.loop = true;
+
+        filterNode = audioCtx.createBiquadFilter();
+        filterNode.type = profile && profile.type === 'bronchial' ? 'bandpass' : 'lowpass';
+        filterNode.frequency.value = profile ? profile.cutoffInhale : 400;
+        filterNode.Q.value = profile && profile.type === 'bronchial' ? 2.5 : 1.2;
+
+        gainNode = audioCtx.createGain();
+        gainNode.gain.value = 0.5;
+
+        masterGain = audioCtx.createGain();
+        const currentVol = volumeSlider ? volumeSlider.value / 100 : 0.8;
+        masterGain.gain.value = currentVol;
+
+        noiseNode.connect(filterNode);
+        filterNode.connect(gainNode);
+        gainNode.connect(masterGain);
+        masterGain.connect(audioCtx.destination);
+        noiseNode.start(0);
+      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      runBreathWaveLoop();
+    } catch (e) {
+      console.warn('Synth start error:', e);
+    }
+  }
+
+  function stopBreathSynth() {
+    if (gainNode && audioCtx) {
+      gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.05);
+    }
   }
 
   const syndromeKeys = [

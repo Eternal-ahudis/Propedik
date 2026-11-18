@@ -178,10 +178,133 @@
           <div id="xrayCanvasBox" class="xray-canvas-box">
             <img id="xrayImage" src="image/normal_chest_xray.png" alt="Нормальная рентгенограмма легких" class="xray-base-image">
             
-            <!-- Адаптивный SVG-слой: координаты строго фиксированы в сетке viewBox 0 0 1000 1000 -->
-            <svg id="anatomySvgOverlay" class="anatomy-svg-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
-              <g id="hotspotsGroup"></g>
-            </svg>
+            <div class="points-overlay-layer">
+              <!-- ================= ПЕРЕДНЯЯ ГРУППА ТОЧЕК (Спереди) ================= -->
+              <!-- Везикулярное дыхание спереди (пособие, рис. 5): верхушки, ключицы, I–III м/р по среднеключичной линии -->
+              <div class="auscultation-point group-vesicular group-active" style="left: 31%; top: 21%;" data-projection="anterior" data-group="vesicular" data-point="A-V1">
+                <span class="point-core">V1</span>
+                <span class="point-tooltip">Правая верхушка (надключичная область)</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 69%; top: 21%;" data-projection="anterior" data-group="vesicular" data-point="A-V2">
+                <span class="point-core">V2</span>
+                <span class="point-tooltip">Левая верхушка (надключичная область)</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 28%; top: 31%;" data-projection="anterior" data-group="vesicular" data-point="A-V3">
+                <span class="point-core">V3</span>
+                <span class="point-tooltip">Подключичная область справа (I м/р по среднеключичной линии)</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 72%; top: 31%;" data-projection="anterior" data-group="vesicular" data-point="A-V4">
+                <span class="point-core">V4</span>
+                <span class="point-tooltip">Подключичная область слева (I м/р по среднеключичной линии)</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 26%; top: 41%;" data-projection="anterior" data-group="vesicular" data-point="A-V5">
+                <span class="point-core">V5</span>
+                <span class="point-tooltip">II межреберье справа по среднеключичной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 74%; top: 41%;" data-projection="anterior" data-group="vesicular" data-point="A-V6">
+                <span class="point-core">V6</span>
+                <span class="point-tooltip">II межреберье слева по среднеключичной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 25%; top: 52%;" data-projection="anterior" data-group="vesicular" data-point="A-V7">
+                <span class="point-core">V7</span>
+                <span class="point-tooltip">III межреберье справа по среднеключичной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular group-active" style="left: 75%; top: 52%;" data-projection="anterior" data-group="vesicular" data-point="A-V8">
+                <span class="point-core">V8</span>
+                <span class="point-tooltip">III межреберье слева по среднеключичной линии</span>
+              </div>
+
+              <!-- Бронхиальное дыхание спереди (пособие, стр. 36): над вырезкой грудины, гортань, рукоятка -->
+              <div class="auscultation-point group-bronchial" style="left: 50%; top: 10%;" data-projection="anterior" data-group="bronchial" data-point="A-B1">
+                <span class="point-core">B1</span>
+                <span class="point-tooltip">Область гортани (перстневидный и щитовидный хрящи)</span>
+              </div>
+              <div class="auscultation-point group-bronchial" style="left: 50%; top: 18%;" data-projection="anterior" data-group="bronchial" data-point="A-B2">
+                <span class="point-core">B2</span>
+                <span class="point-tooltip">Шейный отдел трахеи (над яремной вырезкой грудины)</span>
+              </div>
+              <div class="auscultation-point group-bronchial" style="left: 50%; top: 29%;" data-projection="anterior" data-group="bronchial" data-point="A-B3">
+                <span class="point-core">B3</span>
+                <span class="point-tooltip">Рукоятка грудины (бифуркация трахеи спереди, Th3–Th4)</span>
+              </div>
+
+              <!-- ================= ЗАДНЯЯ ГРУППА ТОЧЕК (Сзади) ================= -->
+              <!-- Везикулярное дыхание сзади (пособие, рис. 5): надлопаточные, межлопаточные (верх/низ), VII–IX м/р по лопаточной линии -->
+              <div class="auscultation-point group-vesicular" style="left: 29%; top: 24%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V1">
+                <span class="point-core">V1</span>
+                <span class="point-tooltip">Надлопаточная область справа (fossa supraspinata, над остью лопатки)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 71%; top: 24%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V2">
+                <span class="point-core">V2</span>
+                <span class="point-tooltip">Надлопаточная область слева (fossa supraspinata, над остью лопатки)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 41%; top: 34%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V3">
+                <span class="point-core">V3</span>
+                <span class="point-tooltip">Межлопаточное пространство справа (верхний отдел, уровень Th3–Th4)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 59%; top: 34%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V4">
+                <span class="point-core">V4</span>
+                <span class="point-tooltip">Межлопаточное пространство слева (верхний отдел, уровень Th3–Th4)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 41%; top: 46%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V5">
+                <span class="point-core">V5</span>
+                <span class="point-tooltip">Межлопаточное пространство справа (нижний отдел, углы лопаток Th6–Th7)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 59%; top: 46%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V6">
+                <span class="point-core">V6</span>
+                <span class="point-tooltip">Межлопаточное пространство слева (нижний отдел, углы лопаток Th6–Th7)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 30%; top: 58%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V7">
+                <span class="point-core">V7</span>
+                <span class="point-tooltip">Подлопаточная область справа, VII межреберье по лопаточной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 70%; top: 58%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V8">
+                <span class="point-core">V8</span>
+                <span class="point-tooltip">Подлопаточная область слева, VII межреберье по лопаточной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 28%; top: 68%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V9">
+                <span class="point-core">V9</span>
+                <span class="point-tooltip">Подлопаточная область справа, VIII межреберье по лопаточной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 72%; top: 68%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V10">
+                <span class="point-core">V10</span>
+                <span class="point-tooltip">Подлопаточная область слева, VIII межреберье по лопаточной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 26%; top: 78%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V11">
+                <span class="point-core">V11</span>
+                <span class="point-tooltip">Базальный отдел справа, IX межреберье по лопаточной линии</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 74%; top: 78%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V12">
+                <span class="point-core">V12</span>
+                <span class="point-tooltip">Базальный отдел слева, IX межреберье по лопаточной линии</span>
+              </div>
+
+              <!-- Бронхиальное дыхание сзади (пособие, стр. 36): C7 и межлопаточное пространство Th3–Th4 -->
+              <div class="auscultation-point group-bronchial" style="left: 50%; top: 14%; display: none;" data-projection="posterior" data-group="bronchial" data-point="P-B1">
+                <span class="point-core">B1</span>
+                <span class="point-tooltip">Остистый отросток VII шейного позвонка (C7, vertebra prominens)</span>
+              </div>
+              <div class="auscultation-point group-bronchial" style="left: 50%; top: 34%; display: none;" data-projection="posterior" data-group="bronchial" data-point="P-B2">
+                <span class="point-core">B2</span>
+                <span class="point-tooltip">Межлопаточное пространство по срединной линии (Th3–Th4, бифуркация трахеи сзади)</span>
+              </div>
+
+              <!-- ================= БОКОВАЯ ГРУППА ТОЧЕК (Сбоку) ================= -->
+              <!-- Везикулярное дыхание сбоку (пособие, рис. 5, стр. 31): среднеподмышечная линия с IV по VI м/р -->
+              <div class="auscultation-point group-vesicular" style="left: 50%; top: 37%; display: none;" data-projection="lateral" data-group="vesicular" data-point="L-V1">
+                <span class="point-core">L1</span>
+                <span class="point-tooltip">IV межреберье по среднеподмышечной линии (linea axillaris media)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 49%; top: 50%; display: none;" data-projection="lateral" data-group="vesicular" data-point="L-V2">
+                <span class="point-core">L2</span>
+                <span class="point-tooltip">V межреберье по среднеподмышечной линии (linea axillaris media)</span>
+              </div>
+              <div class="auscultation-point group-vesicular" style="left: 47%; top: 63%; display: none;" data-projection="lateral" data-group="vesicular" data-point="L-V3">
+                <span class="point-core">L3</span>
+                <span class="point-tooltip">VI межреберье по среднеподмышечной линии (linea axillaris media)</span>
+              </div>
+            </div>
+          </div>
           </div>
 
           <!-- Нижняя легенда -->
