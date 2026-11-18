@@ -2792,3 +2792,16 @@ html, body {
     height: 13px !important;
   }
 }
+
+
+/* Optimized modal play button */
+.modal-play-btn {
+  width: 44px !important;
+  height: 44px !important;
+  box-shadow: 0 4px 10px rgba(13, 148, 136, 0.3) !important;
+}
+
+.modal-play-btn svg {
+  width: 20px !important;
+  height: 20px !important;
+}

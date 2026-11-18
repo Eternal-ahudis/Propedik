@@ -1232,7 +1232,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const text = document.createElement('span');
       text.className = 'blind-option-text';
-      text.textContent = opt.optionName;
+      text.textContent = opt.title || opt.name || opt.optionName || "Вариант ответа";
 
       btn.appendChild(indicator);
       btn.appendChild(text);
@@ -1298,8 +1298,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (blindFeedbackText) {
       blindFeedbackText.textContent = isCorrect
-        ? 'Правильный ответ: ' + blindCurrentTarget.optionName + ' (Уровень запоминания: ' + itemSt.box + ' из 5).'
-        : 'Правильный ответ: ' + blindCurrentTarget.optionName + '. Звук будет чаще предложен алгоритмом для повторения.';
+        ? 'Правильный ответ: ' + (blindCurrentTarget.title || blindCurrentTarget.name || blindCurrentTarget.optionName) + ' (Уровень запоминания: ' + itemSt.box + ' из 5).'
+        : 'Правильный ответ: ' + (blindCurrentTarget.title || blindCurrentTarget.name || blindCurrentTarget.optionName) + '. Звук будет чаще предложен алгоритмом для повторения.';
     }
 
     if (blindFeedbackDesc) {
@@ -1624,6 +1624,19 @@ document.addEventListener('DOMContentLoaded', () => {
       theoryScore = 0;
       loadTheoryQuestion(0);
       showToast('Теоретический тест перезапущен');
+    });
+  }
+
+  const theoryResetProgressBtn = document.getElementById('theoryResetProgressBtn');
+  if (theoryResetProgressBtn) {
+    theoryResetProgressBtn.addEventListener('click', () => {
+      triggerHaptic(15);
+      if (confirm('Начать теоретический тест заново с 1-го вопроса?')) {
+        theoryCurrentIndex = 0;
+        theoryScore = 0;
+        loadTheoryQuestion(0);
+        showToast('Теоретический тест начат заново');
+      }
     });
   }
 
