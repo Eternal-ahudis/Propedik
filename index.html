@@ -2,9 +2,17 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover, user-scalable=yes">
   <title>Пульмонология | Образовательная платформа по пропедевтике</title>
-  <link rel="stylesheet" href="css/style.css?v=3">
+
+  <!-- Mobile & Native Theme Colors -->
+  <meta name="theme-color" content="#0f766e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PROPEDIK">
+
+  <link rel="stylesheet" href="css/style.css?v=4">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -166,136 +174,14 @@
             </div>
           </div>
 
-          <!-- Контейнер рентгенограммы и оверлея точек -->
+          <!-- Контейнер рентгенограммы и векторного оверлея точек (Hotspots) -->
           <div id="xrayCanvasBox" class="xray-canvas-box">
             <img id="xrayImage" src="image/нормальная рентгенограмма легких.png" alt="Нормальная рентгенограмма легких" class="xray-base-image">
             
-            <div class="points-overlay-layer">
-              <!-- ================= ПЕРЕДНЯЯ ГРУППА ТОЧЕК (Спереди) ================= -->
-              <!-- Везикулярное дыхание спереди (пособие, рис. 5): верхушки, ключицы, I–III м/р по среднеключичной линии -->
-              <div class="auscultation-point group-vesicular group-active" style="left: 31%; top: 21%;" data-projection="anterior" data-group="vesicular" data-point="A-V1">
-                <span class="point-core">V1</span>
-                <span class="point-tooltip">Правая верхушка (надключичная область)</span>
-              </div>
-              <div class="auscultation-point group-vesicular group-active" style="left: 69%; top: 21%;" data-projection="anterior" data-group="vesicular" data-point="A-V2">
-                <span class="point-core">V2</span>
-                <span class="point-tooltip">Левая верхушка (надключичная область)</span>
-              </div>
-              <div class="auscultation-point group-vesicular group-active" style="left: 28%; top: 31%;" data-projection="anterior" data-group="vesicular" data-point="A-V3">
-                <span class="point-core">V3</span>
-                <span class="point-tooltip">Подключичная область справа (I м/р по среднеключичной линии)</span>
-              </div>
-              <div class="auscultation-point group-vesicular group-active" style="left: 72%; top: 31%;" data-projection="anterior" data-group="vesicular" data-point="A-V4">
-                <span class="point-core">V4</span>
-                <span class="point-tooltip">Подключичная область слева (I м/р по среднеключичной линии)</span>
-              </div>
-              <div class="auscultation-point group-vesicular group-active" style="left: 26%; top: 41%;" data-projection="anterior" data-group="vesicular" data-point="A-V5">
-                <span class="point-core">V5</span>
-                <span class="point-tooltip">II межреберье справа по среднеключичной линии</span>
-              </div>
-              <div class="auscultation-point group-vesicular group-active" style="left: 74%; top: 41%;" data-projection="anterior" data-group="vesicular" data-point="A-V6">
-                <span class="point-core">V6</span>
-                <span class="point-tooltip">II межреберье слева по среднеключичной линии</span>
-              </div>
-              <div class="auscultation-point group-vesicular group-active" style="left: 25%; top: 52%;" data-projection="anterior" data-group="vesicular" data-point="A-V7">
-                <span class="point-core">V7</span>
-                <span class="point-tooltip">III межреберье справа по среднеключичной линии</span>
-              </div>
-              <div class="auscultation-point group-vesicular group-active" style="left: 75%; top: 52%;" data-projection="anterior" data-group="vesicular" data-point="A-V8">
-                <span class="point-core">V8</span>
-                <span class="point-tooltip">III межреберье слева по среднеключичной линии</span>
-              </div>
-
-              <!-- Бронхиальное дыхание спереди (пособие, стр. 36): над вырезкой грудины, гортань, рукоятка -->
-              <div class="auscultation-point group-bronchial" style="left: 50%; top: 10%;" data-projection="anterior" data-group="bronchial" data-point="A-B1">
-                <span class="point-core">B1</span>
-                <span class="point-tooltip">Область гортани (перстневидный и щитовидный хрящи)</span>
-              </div>
-              <div class="auscultation-point group-bronchial" style="left: 50%; top: 18%;" data-projection="anterior" data-group="bronchial" data-point="A-B2">
-                <span class="point-core">B2</span>
-                <span class="point-tooltip">Шейный отдел трахеи (над яремной вырезкой грудины)</span>
-              </div>
-              <div class="auscultation-point group-bronchial" style="left: 50%; top: 29%;" data-projection="anterior" data-group="bronchial" data-point="A-B3">
-                <span class="point-core">B3</span>
-                <span class="point-tooltip">Рукоятка грудины (бифуркация трахеи спереди, Th3–Th4)</span>
-              </div>
-
-              <!-- ================= ЗАДНЯЯ ГРУППА ТОЧЕК (Сзади) ================= -->
-              <!-- Везикулярное дыхание сзади (пособие, рис. 5): надлопаточные, межлопаточные (верх/низ), VII–IX м/р по лопаточной линии -->
-              <div class="auscultation-point group-vesicular" style="left: 29%; top: 24%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V1">
-                <span class="point-core">V1</span>
-                <span class="point-tooltip">Надлопаточная область справа (fossa supraspinata, над остью лопатки)</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 71%; top: 24%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V2">
-                <span class="point-core">V2</span>
-                <span class="point-tooltip">Надлопаточная область слева (fossa supraspinata, над остью лопатки)</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 41%; top: 34%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V3">
-                <span class="point-core">V3</span>
-                <span class="point-tooltip">Межлопаточное пространство справа (верхний отдел, уровень Th3–Th4)</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 59%; top: 34%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V4">
-                <span class="point-core">V4</span>
-                <span class="point-tooltip">Межлопаточное пространство слева (верхний отдел, уровень Th3–Th4)</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 41%; top: 46%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V5">
-                <span class="point-core">V5</span>
-                <span class="point-tooltip">Межлопаточное пространство справа (нижний отдел, углы лопаток Th6–Th7)</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 59%; top: 46%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V6">
-                <span class="point-core">V6</span>
-                <span class="point-tooltip">Межлопаточное пространство слева (нижний отдел, углы лопаток Th6–Th7)</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 30%; top: 58%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V7">
-                <span class="point-core">V7</span>
-                <span class="point-tooltip">Подлопаточная область справа, VII межреберье по лопаточной линии</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 70%; top: 58%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V8">
-                <span class="point-core">V8</span>
-                <span class="point-tooltip">Подлопаточная область слева, VII межреберье по лопаточной линии</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 28%; top: 68%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V9">
-                <span class="point-core">V9</span>
-                <span class="point-tooltip">Подлопаточная область справа, VIII межреберье по лопаточной линии</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 72%; top: 68%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V10">
-                <span class="point-core">V10</span>
-                <span class="point-tooltip">Подлопаточная область слева, VIII межреберье по лопаточной линии</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 26%; top: 78%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V11">
-                <span class="point-core">V11</span>
-                <span class="point-tooltip">Базальный отдел справа, IX межреберье по лопаточной линии</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 74%; top: 78%; display: none;" data-projection="posterior" data-group="vesicular" data-point="P-V12">
-                <span class="point-core">V12</span>
-                <span class="point-tooltip">Базальный отдел слева, IX межреберье по лопаточной линии</span>
-              </div>
-
-              <!-- Бронхиальное дыхание сзади (пособие, стр. 36): C7 и межлопаточное пространство Th3–Th4 -->
-              <div class="auscultation-point group-bronchial" style="left: 50%; top: 14%; display: none;" data-projection="posterior" data-group="bronchial" data-point="P-B1">
-                <span class="point-core">B1</span>
-                <span class="point-tooltip">Остистый отросток VII шейного позвонка (C7, vertebra prominens)</span>
-              </div>
-              <div class="auscultation-point group-bronchial" style="left: 50%; top: 34%; display: none;" data-projection="posterior" data-group="bronchial" data-point="P-B2">
-                <span class="point-core">B2</span>
-                <span class="point-tooltip">Межлопаточное пространство по срединной линии (Th3–Th4, бифуркация трахеи сзади)</span>
-              </div>
-
-              <!-- ================= БОКОВАЯ ГРУППА ТОЧЕК (Сбоку) ================= -->
-              <!-- Везикулярное дыхание сбоку (пособие, рис. 5, стр. 31): среднеподмышечная линия с IV по VI м/р -->
-              <div class="auscultation-point group-vesicular" style="left: 50%; top: 37%; display: none;" data-projection="lateral" data-group="vesicular" data-point="L-V1">
-                <span class="point-core">L1</span>
-                <span class="point-tooltip">IV межреберье по среднеподмышечной линии (linea axillaris media)</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 49%; top: 50%; display: none;" data-projection="lateral" data-group="vesicular" data-point="L-V2">
-                <span class="point-core">L2</span>
-                <span class="point-tooltip">V межреберье по среднеподмышечной линии (linea axillaris media)</span>
-              </div>
-              <div class="auscultation-point group-vesicular" style="left: 47%; top: 63%; display: none;" data-projection="lateral" data-group="vesicular" data-point="L-V3">
-                <span class="point-core">L3</span>
-                <span class="point-tooltip">VI межреберье по среднеподмышечной линии (linea axillaris media)</span>
-              </div>
-            </div>
+            <!-- Адаптивный SVG-слой: координаты строго фиксированы в сетке viewBox 0 0 1000 1000 -->
+            <svg id="anatomySvgOverlay" class="anatomy-svg-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
+              <g id="hotspotsGroup"></g>
+            </svg>
           </div>
 
           <!-- Нижняя легенда -->
@@ -832,18 +718,29 @@
 
       <!-- ================= ФОРМАТ 1: СЛЕПОЕ ПРОСЛУШИВАНИЕ ================= -->
       <div id="testSectionAudio" class="test-format-panel active">
-        <!-- Статистика слепого тестирования -->
+        <!-- Статистика и прогресс адаптивного интервального повторения -->
         <div class="test-stats-bar">
           <div class="test-stats-info">
-            <span class="test-stats-badge">🎧 Слепое тестирование на слух</span>
+            <span class="test-stats-badge">🎧 Слепое тестирование</span>
             <span class="test-stats-counter">Правильно: <strong id="blindStatsScore">0</strong> из <span id="blindStatsTotal">0</span> (<span id="blindStatsPercent">0%</span>)</span>
           </div>
-          <button type="button" id="blindResetStatsBtn" class="test-reset-btn" title="Сбросить счетчик">
+          
+          <div class="sr-tracker-box">
+            <div class="sr-tracker-head">
+              <span class="sr-tracker-title">Освоено звуков: <strong id="srMasteredCount">0</strong> / <span id="srTotalCount">14</span></span>
+              <span id="srAdaptiveStatus" class="sr-adaptive-badge">Адаптивный подбор</span>
+            </div>
+            <div class="sr-progress-track">
+              <div id="srProgressBar" class="sr-progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <button type="button" id="blindResetStatsBtn" class="test-reset-btn" title="Сбросить счетчик и историю повторений">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
               <path d="M3 3v5h5"/>
             </svg>
-            <span>Сбросить статистику</span>
+            <span>Сбросить прогресс</span>
           </button>
         </div>
 
@@ -1411,7 +1308,50 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</pre>
   <!-- Всплывающее уведомление (Toast) -->
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <!-- Скрипт платформы -->
-  <script src="js/app.js?v=3"></script>
+  <!-- Мобильный нижний таббар (Bottom Navigation Bar для смартфонов) -->
+  <nav id="mobileBottomNav" class="mobile-bottom-nav" aria-label="Мобильная навигация">
+    <button type="button" class="mobile-nav-item active" data-target="panel-auscultation">
+      <div class="mobile-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </div>
+      <span class="mobile-nav-title">Точки</span>
+    </button>
+    <button type="button" class="mobile-nav-item" data-target="panel-pathologies">
+      <div class="mobile-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+      </div>
+      <span class="mobile-nav-title">Патологии</span>
+    </button>
+    <button type="button" class="mobile-nav-item" data-target="panel-test">
+      <div class="mobile-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 11 12 14 22 4"/>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+      </div>
+      <span class="mobile-nav-title">Тесты</span>
+    </button>
+    <button type="button" class="mobile-nav-item" data-target="panel-about">
+      <div class="mobile-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+      </div>
+      <span class="mobile-nav-title">Инфо</span>
+    </button>
+  </nav>
+
+  <!-- База клинических данных (отделена от интерфейса) -->
+  <script src="js/data.js?v=1"></script>
+  <!-- Движок интерфейса платформы -->
+  <script src="js/app.js?v=4"></script>
 </body>
 </html>

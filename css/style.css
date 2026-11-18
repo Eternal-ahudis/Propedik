@@ -2453,3 +2453,264 @@ body {
     font-size: 0.8rem;
   }
 }
+
+/* ==========================================================================
+   ADAPTIVE SVG HOTSPOT LAYER (VECTOR-PRECISE ANATOMICAL COORDINATES)
+   ========================================================================== */
+
+.anatomy-svg-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.svg-hotspot {
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+  transform-origin: center;
+  transform-box: fill-box;
+  outline: none;
+}
+
+.svg-hotspot:hover,
+.svg-hotspot:focus,
+.svg-hotspot.active {
+  transform: scale(1.22);
+}
+
+.svg-hotspot .hotspot-pulse {
+  fill: rgba(13, 148, 136, 0.35);
+  animation: svgPulseWave 2.2s infinite ease-out;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.svg-hotspot.group-bronchial .hotspot-pulse {
+  fill: rgba(2, 132, 199, 0.35);
+}
+
+.svg-hotspot .hotspot-circle {
+  fill: #0d9488;
+  stroke: #ffffff;
+  stroke-width: 4px;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.45));
+  transition: fill 0.2s ease, stroke 0.2s ease;
+}
+
+.svg-hotspot.group-bronchial .hotspot-circle {
+  fill: #0284c7;
+}
+
+.svg-hotspot.active .hotspot-circle {
+  fill: #f59e0b;
+  stroke: #ffffff;
+  stroke-width: 5px;
+}
+
+.svg-hotspot .hotspot-label {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  fill: #ffffff;
+  text-anchor: middle;
+  dominant-baseline: central;
+  user-select: none;
+  pointer-events: none;
+}
+
+.svg-hotspot.dimmed {
+  opacity: 0.25;
+  filter: grayscale(0.8);
+}
+
+@keyframes svgPulseWave {
+  0% { r: 24; opacity: 0.8; }
+  50% { r: 42; opacity: 0.25; }
+  100% { r: 52; opacity: 0; }
+}
+
+/* ==========================================================================
+   SPACED REPETITION (ИНТЕРВАЛЬНОЕ ПОВТОРЕНИЕ) UI
+   ========================================================================== */
+
+.sr-tracker-box {
+  flex: 1;
+  min-width: 220px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.85rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.sr-tracker-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+  font-size: 0.82rem;
+}
+
+.sr-tracker-title {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.sr-adaptive-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: rgba(13, 148, 136, 0.1);
+  color: var(--med-teal-700);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.sr-progress-track {
+  width: 100%;
+  height: 6px;
+  background: var(--border-light);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.sr-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--med-teal-500) 0%, #10b981 100%);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+/* ==========================================================================
+   MOBILE-FIRST UX & BOTTOM NAVIGATION BAR
+   ========================================================================== */
+
+html, body {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(62px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 450;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  user-select: none;
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  height: 100%;
+  padding: 0.35rem 0.2rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  position: relative;
+}
+
+.mobile-nav-item .mobile-nav-icon svg {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.mobile-nav-item .mobile-nav-title {
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.mobile-nav-item.active {
+  color: #2dd4bf;
+}
+
+.mobile-nav-item.active .mobile-nav-icon svg {
+  transform: translateY(-2px);
+  color: #2dd4bf;
+}
+
+.mobile-nav-item.active .mobile-nav-title {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.mobile-nav-item.active::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+  background: #2dd4bf;
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.6);
+}
+
+@media (max-width: 768px) {
+  .nav-section {
+    display: none !important;
+  }
+
+  .mobile-bottom-nav {
+    display: grid;
+  }
+
+  .main-content {
+    padding-bottom: calc(85px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .app-footer {
+    padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .syndrome-modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .syndrome-modal-dialog {
+    max-height: 94vh;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    margin: 0;
+  }
+
+  .syndrome-modal-header {
+    padding: 0.85rem 1.25rem 0.5rem;
+  }
+
+  .syndrome-modal-body {
+    padding: 1.15rem;
+  }
+
+  .criteria-grid-clean {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .test-stats-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+}
