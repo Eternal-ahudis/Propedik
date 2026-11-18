@@ -1127,9 +1127,25 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateSrTrackerUI() {
     const total = blindAudioPool.length;
     let masteredCount = 0;
+    let totalCorrect = 0;
+    let totalMistakes = 0;
+
     Object.keys(srProgress).forEach(id => {
-      if (srProgress[id].box >= 4) masteredCount++;
+      const st = srProgress[id];
+      if (st.box >= 4) masteredCount++;
+      totalCorrect += (st.corrects || 0);
+      totalMistakes += (st.mistakes || 0);
     });
+
+    const totalAttempts = totalCorrect + totalMistakes;
+    const pct = totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 0;
+
+    const statsScoreEl = document.getElementById('blindStatsScore');
+    const statsTotalEl = document.getElementById('blindStatsTotal');
+    const statsPctEl = document.getElementById('blindStatsPercent');
+    if (statsScoreEl) statsScoreEl.textContent = totalCorrect;
+    if (statsTotalEl) statsTotalEl.textContent = totalAttempts;
+    if (statsPctEl) statsPctEl.textContent = `${pct}%`;
 
     const masteredEl = document.getElementById('srMasteredCount');
     const totalEl = document.getElementById('srTotalCount');
@@ -1139,8 +1155,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (masteredEl) masteredEl.textContent = masteredCount;
     if (totalEl) totalEl.textContent = total;
     if (barEl) {
-      const pct = Math.round((masteredCount / total) * 100);
-      barEl.style.width = pct + '%';
+      const masteredPct = Math.round((masteredCount / total) * 100);
+      barEl.style.width = masteredPct + '%';
     }
     if (statusEl) {
       if (masteredCount === total) {
@@ -1175,7 +1191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let blindCurrentTarget = null;
   let blindOptions = [];
-  let blindSelectedOption = null;
+  let blindAnswered = false;
   let blindIsPlaying = false;
   let blindAudioElement = null;
   let blindSynthAnimId = null;
@@ -1186,24 +1202,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const blindPlayIcon = document.getElementById('blindPlayIcon');
   const blindPauseIcon = document.getElementById('blindPauseIcon');
   const blindStatusText = document.getElementById('blindAudioStatus');
+  const blindPhaseBadge = document.getElementById('blindPhaseBadge');
+  const blindVolumeSlider = document.getElementById('blindVolumeSlider');
   const blindOptionsGrid = document.getElementById('blindOptionsGrid');
-  const blindSubmitBtn = document.getElementById('blindSubmitBtn');
   const blindNextBtn = document.getElementById('blindNextBtn');
-  const blindFeedbackCard = document.getElementById('blindFeedbackCard');
+  const blindFeedbackBox = document.getElementById('blindFeedbackBox');
+  const blindFeedbackBadge = document.getElementById('blindFeedbackBadge');
   const blindFeedbackTitle = document.getElementById('blindFeedbackTitle');
-  const blindFeedbackText = document.getElementById('blindFeedbackText');
   const blindFeedbackDesc = document.getElementById('blindFeedbackDesc');
   const blindResetStatsBtn = document.getElementById('blindResetStatsBtn');
 
   function initBlindTestQuestion() {
     stopBlindAudio();
-    blindSelectedOption = null;
-    if (blindFeedbackCard) blindFeedbackCard.classList.remove('active', 'correct', 'error');
-    if (blindSubmitBtn) {
-      blindSubmitBtn.disabled = true;
-      blindSubmitBtn.style.display = 'inline-flex';
+    blindAnswered = false;
+    if (blindFeedbackBox) {
+      blindFeedbackBox.style.display = 'none';
+      blindFeedbackBox.classList.remove('correct', 'wrong');
     }
-    if (blindNextBtn) blindNextBtn.style.display = 'none';
 
     blindCurrentTarget = selectAdaptiveTargetSound();
 
@@ -1221,103 +1236,93 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderBlindOptions() {
     if (!blindOptionsGrid) return;
     blindOptionsGrid.innerHTML = '';
-    blindOptions.forEach(opt => {
+    while (blindOptionsGrid.firstChild) blindOptionsGrid.removeChild(blindOptionsGrid.firstChild);
+
+    const letters = ['А', 'Б', 'В', 'Г'];
+    blindOptions.forEach((opt, idx) => {
       const btn = document.createElement('button');
-      btn.className = 'blind-option-btn';
       btn.type = 'button';
+      btn.className = 'quiz-option-choice';
       btn.setAttribute('data-id', opt.id);
-
-      const indicator = document.createElement('span');
-      indicator.className = 'blind-option-indicator';
-
-      const text = document.createElement('span');
-      text.className = 'blind-option-text';
-      text.textContent = opt.title || opt.name || opt.optionName || "Вариант ответа";
-
-      btn.appendChild(indicator);
-      btn.appendChild(text);
+      btn.innerHTML = `
+        <span class="choice-letter">${letters[idx] || (idx + 1)}</span>
+        <span>${opt.title || opt.name || opt.optionName || "Вариант ответа"}</span>
+      `;
 
       btn.addEventListener('click', () => {
-        triggerHaptic(10);
-        selectBlindOption(opt, btn);
+        handleBlindOptionSelect(opt, btn);
       });
 
       blindOptionsGrid.appendChild(btn);
     });
   }
 
-  function selectBlindOption(opt, btn) {
-    if (blindFeedbackCard && blindFeedbackCard.classList.contains('active')) return;
-    blindSelectedOption = opt;
-    const allBtns = blindOptionsGrid.querySelectorAll('.blind-option-btn');
-    allBtns.forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    if (blindSubmitBtn) blindSubmitBtn.disabled = false;
-  }
-
-  function handleBlindSubmit() {
-    if (!blindSelectedOption || !blindCurrentTarget) return;
+  function handleBlindOptionSelect(selectedOpt, clickedBtn) {
+    if (blindAnswered || !blindCurrentTarget) return;
+    blindAnswered = true;
     triggerHaptic(18);
 
-    const isCorrect = blindSelectedOption.id === blindCurrentTarget.id;
+    const isCorrect = selectedOpt.id === blindCurrentTarget.id;
     const itemSt = srProgress[blindCurrentTarget.id] || { box: 1, corrects: 0, mistakes: 0 };
 
     if (isCorrect) {
-      itemSt.corrects++;
-      itemSt.box = Math.min(5, itemSt.box + 1);
+      itemSt.corrects = (itemSt.corrects || 0) + 1;
+      itemSt.box = Math.min(5, (itemSt.box || 1) + 1);
+      clickedBtn.classList.add('correct');
+      if (blindFeedbackBadge) {
+        blindFeedbackBadge.textContent = 'Верно!';
+        blindFeedbackBadge.className = 'feedback-badge correct';
+      }
+      showToast('Верно! Признак распознан');
     } else {
-      itemSt.mistakes++;
-      itemSt.box = 1; // Возвращаем в первый ящик для активного повторения
+      itemSt.mistakes = (itemSt.mistakes || 0) + 1;
+      itemSt.box = 1; // Возвращаем в первый ящик для интервального повторения
+      clickedBtn.classList.add('wrong');
+      const correctBtn = blindOptionsGrid.querySelector(`[data-id="${blindCurrentTarget.id}"]`);
+      if (correctBtn) correctBtn.classList.add('correct');
+      if (blindFeedbackBadge) {
+        blindFeedbackBadge.textContent = 'Ошибка!';
+        blindFeedbackBadge.className = 'feedback-badge wrong';
+      }
+      showToast('Ошибка! Ознакомьтесь с обоснованием');
     }
+
     itemSt.lastTested = Date.now();
     srProgress[blindCurrentTarget.id] = itemSt;
     saveSrProgress();
     updateSrTrackerUI();
 
-    // Подсветка кнопок
-    const allBtns = blindOptionsGrid.querySelectorAll('.blind-option-btn');
-    allBtns.forEach(b => {
-      const bId = b.getAttribute('data-id');
-      if (bId === blindCurrentTarget.id) {
-        b.classList.add('correct');
-      } else if (bId === blindSelectedOption.id && !isCorrect) {
-        b.classList.add('error');
-      }
-    });
-
-    if (blindFeedbackCard) {
-      blindFeedbackCard.classList.remove('correct', 'error');
-      blindFeedbackCard.classList.add('active', isCorrect ? 'correct' : 'error');
-    }
+    // Блокируем кнопки выбора от повторных кликов
+    const allBtns = blindOptionsGrid.querySelectorAll('.quiz-option-choice');
+    allBtns.forEach(b => b.classList.add('disabled'));
 
     if (blindFeedbackTitle) {
-      blindFeedbackTitle.textContent = isCorrect
-        ? '✓ Верно! Диагностический признак распознан'
-        : '✕ Ошибка! Требуется клинический разбор';
-    }
-
-    if (blindFeedbackText) {
-      blindFeedbackText.textContent = isCorrect
-        ? 'Правильный ответ: ' + (blindCurrentTarget.title || blindCurrentTarget.name || blindCurrentTarget.optionName) + ' (Уровень запоминания: ' + itemSt.box + ' из 5).'
-        : 'Правильный ответ: ' + (blindCurrentTarget.title || blindCurrentTarget.name || blindCurrentTarget.optionName) + '. Звук будет чаще предложен алгоритмом для повторения.';
+      blindFeedbackTitle.textContent = blindCurrentTarget.title || blindCurrentTarget.name || blindCurrentTarget.optionName;
     }
 
     if (blindFeedbackDesc) {
-      blindFeedbackDesc.textContent = blindCurrentTarget.clinicalExplanation || '';
+      const expl = blindCurrentTarget.explanation || blindCurrentTarget.clinicalExplanation || '';
+      const boxInfo = `(Уровень запоминания по Лейтнеру: ${itemSt.box} из 5. Всего верных ответов: ${itemSt.corrects}, ошибок: ${itemSt.mistakes})`;
+      blindFeedbackDesc.textContent = expl ? `${expl}\n\n${boxInfo}` : boxInfo;
     }
 
-    if (blindSubmitBtn) blindSubmitBtn.style.display = 'none';
+    if (blindFeedbackBox) {
+      blindFeedbackBox.classList.remove('correct', 'wrong');
+      blindFeedbackBox.classList.add(isCorrect ? 'correct' : 'wrong');
+      blindFeedbackBox.style.display = 'block';
+    }
+
     if (blindNextBtn) {
-      blindNextBtn.style.display = 'inline-flex';
       blindNextBtn.focus();
     }
   }
 
-  if (blindSubmitBtn) blindSubmitBtn.addEventListener('click', handleBlindSubmit);
-  if (blindNextBtn) blindNextBtn.addEventListener('click', () => {
-    triggerHaptic(10);
-    initBlindTestQuestion();
-  });
+  if (blindNextBtn) {
+    blindNextBtn.addEventListener('click', () => {
+      triggerHaptic(10);
+      initBlindTestQuestion();
+    });
+  }
 
   if (blindResetStatsBtn) {
     blindResetStatsBtn.addEventListener('click', () => {
@@ -1329,7 +1334,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         saveSrProgress();
         updateSrTrackerUI();
+        initBlindTestQuestion();
         showToast('Прогресс интервального повторения сброшен');
+      }
+    });
+  }
+
+  if (blindVolumeSlider) {
+    blindVolumeSlider.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value) / 100;
+      if (blindAudioElement) blindAudioElement.volume = val;
+      if (blindGainNode && blindAudioCtx) {
+        blindGainNode.gain.setTargetAtTime(val * 0.4, blindAudioCtx.currentTime, 0.05);
       }
     });
   }
@@ -1349,13 +1365,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (blindPlayIcon) blindPlayIcon.style.display = 'none';
     if (blindPauseIcon) blindPauseIcon.style.display = 'inline-block';
     if (blindStatusText) blindStatusText.textContent = 'Воспроизведение аускультативного шума...';
+    if (blindPhaseBadge) {
+      blindPhaseBadge.textContent = 'Идет воспроизведение';
+      blindPhaseBadge.className = 'player-phase-badge phase-inhale';
+    }
 
-    if (blindCurrentTarget.audioFile) {
+    const audioSrc = blindCurrentTarget.audioFile || blindCurrentTarget.soundAudioFile;
+    if (audioSrc) {
       if (!blindAudioElement) {
         blindAudioElement = new Audio();
         blindAudioElement.loop = true;
       }
-      blindAudioElement.src = blindCurrentTarget.audioFile;
+      blindAudioElement.src = audioSrc;
+      const vol = blindVolumeSlider ? parseFloat(blindVolumeSlider.value) / 100 : 0.85;
+      blindAudioElement.volume = vol;
       blindAudioElement.play().then(() => {
         runBlindCanvasLoop();
       }).catch(err => {
@@ -1372,6 +1395,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (blindPlayIcon) blindPlayIcon.style.display = 'inline-block';
     if (blindPauseIcon) blindPauseIcon.style.display = 'none';
     if (blindStatusText) blindStatusText.textContent = 'Звук остановлен. Нажмите для воспроизведения.';
+    if (blindPhaseBadge) {
+      blindPhaseBadge.textContent = 'Готов к воспроизведению';
+      blindPhaseBadge.className = 'player-phase-badge';
+    }
 
     if (blindAudioElement) {
       try {
