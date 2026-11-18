@@ -17,7 +17,7 @@
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="manifest" href="manifest.json">
 
-  <link rel="stylesheet" href="css/style.css?v=20261118_v8">
+  <link rel="stylesheet" href="css/style.css?v=20261118_v9">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1333,26 +1333,26 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</pre>
           <!-- Навигационные подвкладки внутри статьи -->
           <div class="syndrome-modal-tabs" role="tablist">
             <button type="button" class="modal-tab-btn active" data-subtab="criteria" aria-label="Диагностические критерии">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M9 11l3 3L22 4"/>
                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
               </svg>
-              <span class="tab-label-text">Критерии</span>
+              <span class="tab-label-text">Диагностические<br class="tab-mobile-br"> критерии</span>
             </button>
             <button type="button" class="modal-tab-btn" data-subtab="xray" aria-label="Рентгенограмма">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
                 <circle cx="8.5" cy="8.5" r="1.5"/>
                 <polyline points="21 15 16 10 5 21"/>
               </svg>
-              <span class="tab-label-text">Рентген</span>
+              <span class="tab-label-text">Рентгенограмма</span>
             </button>
-            <button type="button" class="modal-tab-btn" data-subtab="sound" aria-label="Аускультативный звук">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+            <button type="button" class="modal-tab-btn" data-subtab="sound" aria-label="Аускультация">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
                 <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
               </svg>
-              <span class="tab-label-text">Аудио</span>
+              <span class="tab-label-text">Аускультация</span>
             </button>
           </div>
 
@@ -1478,11 +1478,11 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</pre>
               <div class="syndrome-modal-sound-wrap">
                 <div class="sound-clean-player-box">
                   <div class="sound-clean-top">
-                    <button id="modalPlaySoundBtn" type="button" class="play-toggle-btn modal-play-btn" title="Слушать аускультативный звук">
-                      <svg id="modalPlayIcon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <button id="modalPlaySoundBtn" type="button" class="play-toggle-btn modal-play-btn syndrome-play-btn" style="width: 52px; height: 52px; min-width: 52px; min-height: 52px; border-radius: 50%; background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); border: none; color: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 14px rgba(13, 148, 136, 0.45); flex-shrink: 0; padding: 0;" title="Слушать аускультативный звук" aria-label="Воспроизвести аускультативный звук">
+                      <svg id="modalPlayIcon" viewBox="0 0 24 24" width="22" height="22" fill="#ffffff" style="display: block;">
                         <polygon points="5 3 19 12 5 21 5 3"/>
                       </svg>
-                      <svg id="modalPauseIcon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="display: none;">
+                      <svg id="modalPauseIcon" viewBox="0 0 24 24" width="22" height="22" fill="#ffffff" style="display: none;">
                         <rect x="6" y="4" width="4" height="16"/>
                         <rect x="14" y="4" width="4" height="16"/>
                       </svg>
@@ -1682,8 +1682,8 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</pre>
   </div>
 
   <!-- База клинических данных (отделена от интерфейса) -->
-  <script src="js/data.js?v=20261118_v8"></script>
+  <script src="js/data.js?v=20261118_v9"></script>
   <!-- Движок интерфейса платформы -->
-  <script src="js/app.js?v=20261118_v8"></script>
+  <script src="js/app.js?v=20261118_v9"></script>
 </body>
 </html>

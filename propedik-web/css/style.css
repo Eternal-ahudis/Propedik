@@ -857,9 +857,9 @@ body {
   flex-direction: row !important;
   align-items: stretch !important;
   background: var(--bg-surface);
-  border-bottom: 1px solid var(--border-light);
-  padding: 0 4px !important;
-  gap: 2px !important;
+  border-bottom: 2px solid var(--border-light) !important;
+  padding: 0 !important;
+  gap: 0 !important;
   margin-top: 0.75rem;
   box-sizing: border-box !important;
   width: 100% !important;
@@ -873,35 +873,38 @@ body {
   max-width: 33.333% !important;
   width: 33.333% !important;
   box-sizing: border-box !important;
-  padding: 0.75rem 0.2rem !important;
+  padding: 0.75rem 0.35rem !important;
   background: transparent;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent !important;
   font-size: 0.84rem;
   font-weight: 600;
   color: var(--text-secondary);
   cursor: pointer;
-  white-space: nowrap !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 0.3rem !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  gap: 0.35rem !important;
+  text-align: center !important;
   transition: all 0.2s ease;
 }
 
 .modal-tab-btn .tab-label-text {
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  white-space: nowrap !important;
   min-width: 0 !important;
+  font-weight: 600;
+  text-align: center;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.modal-tab-btn .tab-mobile-br {
+  display: none;
 }
 
 .modal-tab-btn svg {
   flex-shrink: 0 !important;
-  width: 14px !important;
-  height: 14px !important;
+  width: 16px !important;
+  height: 16px !important;
 }
 
 .modal-tab-btn:hover {
@@ -910,8 +913,10 @@ body {
 }
 
 .modal-tab-btn.active {
-  color: var(--med-teal-700);
-  border-bottom-color: var(--med-teal-600);
+  color: var(--med-teal-700) !important;
+  border-bottom: 3px solid var(--med-teal-600) !important;
+  background: var(--med-teal-50) !important;
+  font-weight: 700 !important;
 }
 
 /* Modal Body Content */
@@ -2903,12 +2908,13 @@ html, body {
     display: flex !important;
     flex-direction: row !important;
     align-items: stretch !important;
-    padding: 0 2px !important;
+    padding: 0 !important;
     gap: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
+    border-bottom: 2px solid var(--border-light) !important;
   }
 
   .modal-tab-btn {
@@ -2917,38 +2923,68 @@ html, body {
     max-width: 33.333% !important;
     width: 33.333% !important;
     box-sizing: border-box !important;
-    padding: 0.65rem 0.15rem !important;
-    font-size: 0.78rem !important;
+    padding: 0.55rem 0.15rem !important;
+    font-size: 0.72rem !important;
+    line-height: 1.15 !important;
     gap: 0.2rem !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    border: none !important;
+    border-bottom: 3px solid transparent !important;
+    background: transparent !important;
   }
 
   .modal-tab-btn .tab-label-text {
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    white-space: nowrap !important;
+    font-size: 0.72rem !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
+    display: block !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    overflow: visible !important;
     min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .modal-tab-btn .tab-mobile-br {
+    display: block !important;
   }
 
   .modal-tab-btn svg {
-    width: 13px !important;
-    height: 13px !important;
+    width: 16px !important;
+    height: 16px !important;
     flex-shrink: 0 !important;
+    margin-bottom: 1px !important;
+  }
+
+  .modal-tab-btn.active {
+    color: var(--med-teal-700) !important;
+    border-bottom: 3px solid var(--med-teal-600) !important;
+    background: var(--med-teal-50) !important;
+    font-weight: 700 !important;
   }
 }
 
 @media (max-width: 480px) {
   .modal-tab-btn {
-    font-size: 0.74rem !important;
-    padding: 0.6rem 0.1rem !important;
+    font-size: 0.70rem !important;
+    padding: 0.5rem 0.1rem !important;
     gap: 0.15rem !important;
   }
 
+  .modal-tab-btn .tab-label-text {
+    font-size: 0.70rem !important;
+    line-height: 1.12 !important;
+  }
+
   .modal-tab-btn svg {
-    width: 12px !important;
-    height: 12px !important;
+    width: 15px !important;
+    height: 15px !important;
   }
 }
 
@@ -3007,11 +3043,14 @@ html, body {
 #modalPlaySoundBtn,
 .modal-play-btn,
 .syndrome-play-btn,
-.sound-clean-top button.play-toggle-btn {
-  width: 48px !important;
-  height: 48px !important;
-  min-width: 48px !important;
-  min-height: 48px !important;
+.sound-clean-top button.play-toggle-btn,
+.sound-clean-top button {
+  width: 52px !important;
+  height: 52px !important;
+  min-width: 52px !important;
+  min-height: 52px !important;
+  max-width: 52px !important;
+  max-height: 52px !important;
   border-radius: 50% !important;
   background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%) !important;
   border: none !important;
@@ -3025,25 +3064,38 @@ html, body {
   transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
   outline: none !important;
   padding: 0 !important;
+  margin: 0 !important;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
 #modalPlaySoundBtn:hover,
 .modal-play-btn:hover,
-.syndrome-play-btn:hover {
+.syndrome-play-btn:hover,
+.sound-clean-top button:hover {
   transform: scale(1.06) !important;
   background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%) !important;
-  box-shadow: 0 6px 18px rgba(13, 148, 136, 0.55) !important;
+  box-shadow: 0 6px 18px rgba(13, 148, 136, 0.6) !important;
 }
 
 #modalPlaySoundBtn:active,
 .modal-play-btn:active,
-.syndrome-play-btn:active {
+.syndrome-play-btn:active,
+.sound-clean-top button:active {
   transform: scale(0.95) !important;
+}
+
+#modalPlaySoundBtn.playing,
+.modal-play-btn.playing,
+.syndrome-play-btn.playing,
+.sound-clean-top button.playing {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.45) !important;
 }
 
 #modalPlaySoundBtn svg,
 .modal-play-btn svg,
-.syndrome-play-btn svg {
+.syndrome-play-btn svg,
+.sound-clean-top button svg {
   fill: #ffffff !important;
   color: #ffffff !important;
   width: 22px !important;
