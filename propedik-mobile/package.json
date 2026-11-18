@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node build-mobile.js",
     "cap:sync": "npx @capacitor/cli sync",
-    "cap:build": "node build-mobile.js && npx @capacitor/cli sync"
+    "cap:build": "node build-mobile.js && npx @capacitor/cli sync",
+    "build:apk": "node build-mobile.js && npx @capacitor/cli sync && cd android && .\\gradlew.bat assembleDebug"
   },
   "dependencies": {
     "@capacitor/android": "^7.0.0",

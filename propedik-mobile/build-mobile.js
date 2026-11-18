@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
+const webSourceDir = path.resolve(__dirname, '../propedik-web');
 const targetDir = path.resolve(__dirname, 'www');
 
 // Clean and recreate www/
@@ -11,8 +12,9 @@ fs.mkdirSync(targetDir, { recursive: true });
 
 function copyRecursiveSync(src, dest) {
   const exists = fs.existsSync(src);
-  const stats = exists && fs.statSync(src);
-  const isDirectory = exists && stats.isDirectory();
+  if (!exists) return;
+  const stats = fs.statSync(src);
+  const isDirectory = stats.isDirectory();
   if (isDirectory) {
     if (!fs.existsSync(dest)) {
       fs.mkdirSync(dest, { recursive: true });
@@ -20,7 +22,7 @@ function copyRecursiveSync(src, dest) {
     fs.readdirSync(src).forEach((childItemName) => {
       copyRecursiveSync(path.join(src, childItemName), path.join(dest, childItemName));
     });
-  } else if (exists) {
+  } else {
     fs.copyFileSync(src, dest);
   }
 }
@@ -37,14 +39,14 @@ const itemsToCopy = [
 ];
 
 itemsToCopy.forEach(item => {
-  const srcPath = path.resolve(__dirname, item);
+  const srcPath = path.resolve(webSourceDir, item);
   const destPath = path.resolve(targetDir, item);
   if (fs.existsSync(srcPath)) {
     copyRecursiveSync(srcPath, destPath);
-    console.log(`Copied ${item} to www/`);
+    console.log(`Copied ${item} from propedik-web to www/`);
   } else {
-    console.warn(`Warning: ${item} not found!`);
+    console.warn(`Warning: ${item} not found in propedik-web!`);
   }
 });
 
-console.log('Mobile web assets successfully prepared in www/');
+console.log('Mobile web assets successfully prepared in propedik-mobile/www/');
