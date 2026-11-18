@@ -1667,6 +1667,105 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ================= 6.2. ИНСТАЛЛЯЦИЯ PWA & iOS ПОДДЕРЖКА =================
+  const isIOS = (/iPad|iPhone|iPod/.test(navigator.userAgent) || 
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) && 
+    !window.MSStream;
+  const isStandalone = window.navigator.standalone === true || 
+    window.matchMedia('(display-mode: standalone)').matches;
+
+  const iosInstallBanner = document.getElementById('iosInstallBanner');
+  const iosOpenGuideBtn = document.getElementById('iosOpenGuideBtn');
+  const iosDismissBannerBtn = document.getElementById('iosDismissBannerBtn');
+  const iosInstallModal = document.getElementById('iosInstallModal');
+  const iosModalCloseBtn = document.getElementById('iosModalCloseBtn');
+  const iosModalDoneBtn = document.getElementById('iosModalDoneBtn');
+  const openIosGuideFromAboutBtn = document.getElementById('openIosGuideFromAboutBtn');
+  const appInstallHeaderBtn = document.getElementById('appInstallHeaderBtn');
+  const pwaGenericInstallBtn = document.getElementById('pwaGenericInstallBtn');
+
+  function openIosModal() {
+    triggerHaptic(15);
+    if (iosInstallModal) {
+      iosInstallModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  window.openIosInstallModal = openIosModal;
+
+  function closeIosModal() {
+    triggerHaptic(10);
+    if (iosInstallModal) {
+      iosInstallModal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  }
+
+  if (iosModalCloseBtn) iosModalCloseBtn.addEventListener('click', closeIosModal);
+  if (iosModalDoneBtn) iosModalDoneBtn.addEventListener('click', closeIosModal);
+  if (iosInstallModal) {
+    iosInstallModal.addEventListener('click', (e) => {
+      if (e.target === iosInstallModal) closeIosModal();
+    });
+  }
+
+  if (iosOpenGuideBtn) iosOpenGuideBtn.addEventListener('click', openIosModal);
+  if (openIosGuideFromAboutBtn) openIosGuideFromAboutBtn.addEventListener('click', openIosModal);
+
+  if (iosDismissBannerBtn) {
+    iosDismissBannerBtn.addEventListener('click', () => {
+      triggerHaptic(10);
+      if (iosInstallBanner) iosInstallBanner.style.display = 'none';
+      try {
+        localStorage.setItem('ios_pwa_banner_dismissed', '1');
+      } catch (e) {}
+    });
+  }
+
+  // Показываем плавающий баннер на iOS Safari, если приложение еще не установлено
+  if (isIOS && !isStandalone && iosInstallBanner) {
+    try {
+      const isDismissed = localStorage.getItem('ios_pwa_banner_dismissed') === '1';
+      if (!isDismissed) {
+        setTimeout(() => {
+          if (iosInstallBanner) iosInstallBanner.style.display = 'flex';
+        }, 1800);
+      }
+    } catch (e) {}
+  }
+
+  // Обработка Chrome / Android beforeinstallprompt
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+  });
+
+  function handleInstallClick() {
+    triggerHaptic(15);
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult && choiceResult.outcome === 'accepted') {
+          showToast('Приложение PROPEDIK установлено!');
+        }
+        deferredPrompt = null;
+      });
+    } else if (isIOS) {
+      openIosModal();
+    } else {
+      openIosModal();
+    }
+  }
+
+  if (appInstallHeaderBtn) {
+    appInstallHeaderBtn.addEventListener('click', handleInstallClick);
+  }
+
+  if (pwaGenericInstallBtn) {
+    pwaGenericInstallBtn.addEventListener('click', handleInstallClick);
+  }
+
 
   // ================= 7. ИНИЦИАЛИЗАЦИЯ ПРИ ЗАПУСКЕ =================
   loadSrProgress();

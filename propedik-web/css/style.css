@@ -725,13 +725,16 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  height: 100%;
+  box-sizing: border-box;
   background: rgba(15, 23, 42, 0.82);
   backdrop-filter: blur(6px);
   z-index: 500;
   padding: 1.5rem;
   overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -745,7 +748,7 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  max-width: 1040px;
+  max-width: min(1040px, calc(100vw - 2rem));
   width: 100%;
   max-height: 92vh;
   margin: auto;
@@ -753,6 +756,7 @@ body {
   flex-direction: column;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
   overflow: hidden;
+  box-sizing: border-box;
   animation: modalSlideUpFade 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -849,37 +853,55 @@ body {
 
 /* Modal Sub-tabs */
 .syndrome-modal-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
   background: var(--bg-surface);
   border-bottom: 1px solid var(--border-light);
-  padding: 0 0.5rem;
-  gap: 0.25rem;
+  padding: 0 4px !important;
+  gap: 2px !important;
   margin-top: 0.75rem;
-  box-sizing: border-box;
-  width: 100%;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
 }
 
 .modal-tab-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  padding: 0.75rem 0.25rem;
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  max-width: 33.333% !important;
+  width: 33.333% !important;
+  box-sizing: border-box !important;
+  padding: 0.75rem 0.2rem !important;
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   font-weight: 600;
   color: var(--text-secondary);
   cursor: pointer;
-  white-space: nowrap;
-  min-width: 0;
+  white-space: nowrap !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.3rem !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
   transition: all 0.2s ease;
 }
 
+.modal-tab-btn .tab-label-text {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  min-width: 0 !important;
+}
+
 .modal-tab-btn svg {
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
+  width: 14px !important;
+  height: 14px !important;
 }
 
 .modal-tab-btn:hover {
@@ -2767,23 +2789,36 @@ html, body {
   }
 
   .syndrome-modal-overlay {
-    padding: 0;
-    align-items: flex-end;
+    padding: 0 !important;
+    align-items: flex-end !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
   }
 
   .syndrome-modal-dialog {
-    max-height: 94vh;
-    border-radius: 20px 20px 0 0;
-    width: 100%;
-    margin: 0;
+    max-height: 94vh !important;
+    border-radius: 20px 20px 0 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
   }
 
   .syndrome-modal-header {
-    padding: 0.85rem 1.25rem 0.5rem;
+    padding: 0.85rem 1rem 0.5rem !important;
+  }
+
+  .syndrome-definition-lead {
+    margin: 0.65rem 0.85rem 0 !important;
+    padding: 0.65rem 0.85rem !important;
+    font-size: 0.86rem !important;
   }
 
   .syndrome-modal-body {
-    padding: 1.15rem;
+    padding: 1rem 0.85rem !important;
   }
 
   .criteria-grid-clean {
@@ -2796,8 +2831,90 @@ html, body {
     align-items: stretch;
     gap: 0.75rem;
   }
+
+  .sound-clean-player-box {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .sound-clean-top {
+    gap: 0.75rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .sound-clean-title {
+    font-size: 1rem !important;
+  }
+
+  .sound-clean-desc {
+    font-size: 0.85rem !important;
+  }
+
+  .syndrome-modal-footer {
+    padding: 0.75rem 0.85rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .modal-nav-btn {
+    padding: 0.55rem 0.65rem !important;
+    font-size: 0.76rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .syndrome-modal-tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    padding: 0 2px !important;
+    gap: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .modal-tab-btn {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    max-width: 33.333% !important;
+    width: 33.333% !important;
+    box-sizing: border-box !important;
+    padding: 0.65rem 0.15rem !important;
+    font-size: 0.78rem !important;
+    gap: 0.2rem !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .modal-tab-btn .tab-label-text {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    min-width: 0 !important;
+  }
+
+  .modal-tab-btn svg {
+    width: 13px !important;
+    height: 13px !important;
+    flex-shrink: 0 !important;
+  }
 }
 
+@media (max-width: 480px) {
+  .modal-tab-btn {
+    font-size: 0.74rem !important;
+    padding: 0.6rem 0.1rem !important;
+    gap: 0.15rem !important;
+  }
+
+  .modal-tab-btn svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+}
 
 /* ==========================================================================
    MOBILE SAFE AREA & HEADER OPTIMIZATIONS (class: mobile-app-header-safe)
@@ -2847,22 +2964,6 @@ html, body {
     font-size: 0.7rem !important;
     white-space: nowrap !important;
   }
-
-  .syndrome-modal-tabs {
-    padding: 0 0.35rem !important;
-    gap: 0.15rem !important;
-  }
-
-  .modal-tab-btn {
-    padding: 0.65rem 0.15rem !important;
-    font-size: 0.8rem !important;
-    gap: 0.25rem !important;
-  }
-
-  .modal-tab-btn svg {
-    width: 13px !important;
-    height: 13px !important;
-  }
 }
 
 
@@ -2876,4 +2977,480 @@ html, body {
 .modal-play-btn svg {
   width: 20px !important;
   height: 20px !important;
+}
+
+/* ==========================================================================
+   iOS PWA & SAFARI INSTALLATION STYLING
+   ========================================================================== */
+
+/* iOS Install Floating Banner */
+.ios-install-banner {
+  position: fixed;
+  bottom: calc(75px + env(safe-area-inset-bottom, 0px));
+  left: 1rem;
+  right: 1rem;
+  max-width: 460px;
+  margin: 0 auto;
+  z-index: 450;
+  background: linear-gradient(135deg, #091b24 0%, #0d9488 100%);
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: slideUpBanner 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUpBanner {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ios-install-banner.hidden {
+  display: none !important;
+}
+
+.ios-banner-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.ios-banner-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.ios-banner-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+}
+
+.ios-banner-desc {
+  font-size: 0.72rem;
+  color: #ccfbf1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ios-banner-action-btn {
+  background: #ffffff;
+  color: #0f766e;
+  border: none;
+  padding: 0.45rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.ios-banner-action-btn:hover {
+  background: #f0fdfa;
+  transform: translateY(-1px);
+}
+
+.ios-banner-close-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: color 0.15s ease;
+}
+
+.ios-banner-close-btn:hover {
+  color: #ffffff;
+}
+
+/* Header Install Quick Button */
+.header-install-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.header-install-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+/* iOS Step by Step Modal */
+.ios-install-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  box-sizing: border-box;
+}
+
+.ios-install-modal-dialog {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  box-sizing: border-box;
+  animation: modalSlideUpFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.ios-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.25rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  background: linear-gradient(135deg, #ffffff 0%, var(--med-teal-50) 100%);
+}
+
+.ios-modal-header-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #0f766e;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(15, 118, 110, 0.3);
+}
+
+.ios-modal-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.ios-modal-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0.2rem 0 0;
+}
+
+.ios-modal-close {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.ios-modal-close:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.ios-modal-body {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ios-step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  transition: border-color 0.15s ease;
+}
+
+.ios-step-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #0d9488;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+}
+
+.ios-step-visual {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: #f0fdfa;
+  border: 1px solid #ccfbf1;
+  border-radius: 10px;
+}
+
+.safari-share-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-icon-preview img {
+  display: block;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ios-step-info h4 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  color: var(--text-primary);
+}
+
+.ios-step-info p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.ios-modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: flex-end;
+  background: var(--bg-surface);
+}
+
+.ios-modal-done-btn {
+  padding: 0.65rem 1.5rem;
+  background: #0d9488;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.15s ease;
+}
+
+.ios-modal-done-btn:hover {
+  background: #0f766e;
+}
+
+/* Tab 4 About - Install Card */
+.app-install-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.install-platforms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.install-platform-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.platform-box-head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.platform-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.platform-icon.ios-icon {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.platform-icon.android-icon {
+  background: #059669;
+  color: #ffffff;
+}
+
+.platform-box-head h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.platform-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.ios-install-steps {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.ios-install-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  line-height: 1.4;
+}
+
+.step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--med-teal-100);
+  color: var(--med-teal-700);
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.safari-share-icon-inline, .safari-plus-icon-inline {
+  display: inline-flex;
+  vertical-align: middle;
+  background: #e0f2fe;
+  color: #0284c7;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin: 0 2px;
+}
+
+.btn-open-ios-guide, .btn-install-pwa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  background: var(--med-teal-50);
+  color: var(--med-teal-700);
+  border: 1px solid var(--med-teal-200);
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.btn-open-ios-guide:hover, .btn-install-pwa:hover {
+  background: var(--med-teal-100);
+  border-color: var(--med-teal-300);
+}
+
+.btn-download-apk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  background: #0d9488;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 6px rgba(13, 148, 136, 0.25);
+}
+
+.btn-download-apk:hover {
+  background: #0f766e;
+  transform: translateY(-1px);
 }
