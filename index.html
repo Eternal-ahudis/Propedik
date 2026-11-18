@@ -176,7 +176,7 @@
 
           <!-- Контейнер рентгенограммы и векторного оверлея точек (Hotspots) -->
           <div id="xrayCanvasBox" class="xray-canvas-box">
-            <img id="xrayImage" src="image/нормальная рентгенограмма легких.png" alt="Нормальная рентгенограмма легких" class="xray-base-image">
+            <img id="xrayImage" src="image/normal_chest_xray.png" alt="Нормальная рентгенограмма легких" class="xray-base-image">
             
             <!-- Адаптивный SVG-слой: координаты строго фиксированы в сетке viewBox 0 0 1000 1000 -->
             <svg id="anatomySvgOverlay" class="anatomy-svg-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
@@ -1090,27 +1090,27 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.</pre>
 
           <!-- Навигационные подвкладки внутри статьи -->
           <div class="syndrome-modal-tabs" role="tablist">
-            <button type="button" class="modal-tab-btn active" data-subtab="criteria">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <button type="button" class="modal-tab-btn active" data-subtab="criteria" aria-label="Диагностические критерии">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M9 11l3 3L22 4"/>
                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
               </svg>
-              <span>Диагностические критерии</span>
+              <span class="tab-label-text">Критерии</span>
             </button>
-            <button type="button" class="modal-tab-btn" data-subtab="xray">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <button type="button" class="modal-tab-btn" data-subtab="xray" aria-label="Рентгенограмма">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
                 <circle cx="8.5" cy="8.5" r="1.5"/>
                 <polyline points="21 15 16 10 5 21"/>
               </svg>
-              <span>Рентгенограмма</span>
+              <span class="tab-label-text">Рентген</span>
             </button>
-            <button type="button" class="modal-tab-btn" data-subtab="sound">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <button type="button" class="modal-tab-btn" data-subtab="sound" aria-label="Аускультативный звук">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
                 <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
               </svg>
-              <span>Аускультативный звук</span>
+              <span class="tab-label-text">Аудио</span>
             </button>
           </div>
 

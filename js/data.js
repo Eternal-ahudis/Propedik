@@ -94,7 +94,8 @@ window.PROPEDIK_DATA = {
     "anterior": {
       "name": "Передняя группа (Спереди)",
       "xrayTitle": "Обзорная рентгенограмма легких (прямая проекция) — Передняя группа точек",
-      "imageSrc": "image/нормальная рентгенограмма легких.png",
+      "imageSrc": "image/normal_chest_xray.png",
+      "image": "image/normal_chest_xray.png",
       "isLateral": false,
       "legendVesicular": "<strong>Везикулярное дыхание:</strong> 8 симметричных точек спереди (верхушки, ключицы, I–III м/р по среднеключичной линии)",
       "legendBronchial": "<strong>Бронхиальное дыхание:</strong> 3 точки по срединной линии (гортань, трахея, рукоятка грудины)",
@@ -194,7 +195,8 @@ window.PROPEDIK_DATA = {
     "posterior": {
       "name": "Задняя группа (Сзади)",
       "xrayTitle": "Обзорная рентгенограмма легких (прямая проекция) — Задняя группа точек",
-      "imageSrc": "image/нормальная рентгенограмма легких.png",
+      "imageSrc": "image/normal_chest_xray.png",
+      "image": "image/normal_chest_xray.png",
       "isLateral": false,
       "legendVesicular": "<strong>Везикулярное дыхание:</strong> 12 симметричных точек сзади (надлопаточные, межлопаточные и VII–IX м/р по лопаточной линии)",
       "legendBronchial": "<strong>Бронхиальное дыхание:</strong> 2 точки по срединной линии (остистый отросток C7 и межлопаточная бифуркация Th3–Th4)",
@@ -318,7 +320,8 @@ window.PROPEDIK_DATA = {
     "lateral": {
       "name": "Боковая группа (Сбоку)",
       "xrayTitle": "Боковая рентгенограмма легких (левая боковая проекция) — Боковая группа точек",
-      "imageSrc": "image/Нормальная рентгенограмма сбоку.jpg",
+      "imageSrc": "image/normal_chest_lateral.jpg",
+      "image": "image/normal_chest_lateral.jpg",
       "isLateral": true,
       "legendVesicular": "<strong>Везикулярное дыхание:</strong> 3 точки по среднеподмышечной линии (IV, V и VI межреберья)",
       "legendBronchial": "<strong>Бронхиальное дыхание:</strong> в норме в боковых отделах отсутствует",

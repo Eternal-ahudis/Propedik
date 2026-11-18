@@ -174,18 +174,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!proj) return;
 
     hotspotsGroup.innerHTML = '';
+    const points = proj.hotspots || proj.points || [];
 
-    proj.points.forEach(pt => {
+    points.forEach(pt => {
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      g.setAttribute('class', 'svg-hotspot' + (pt.group === currentGroup ? ' active' : ''));
+      const isGrpActive = pt.group === currentGroup;
+      g.setAttribute('class', 'svg-hotspot group-' + pt.group + (isGrpActive ? ' active' : ''));
       g.setAttribute('data-point-id', pt.id);
       g.setAttribute('data-group', pt.group);
       g.setAttribute('tabindex', '0');
       g.setAttribute('role', 'button');
-      g.setAttribute('aria-label', pt.num + '. ' + pt.name);
+      const lbl = pt.label || pt.num || '';
+      const tip = pt.tooltip || pt.name || '';
+      g.setAttribute('aria-label', lbl + '. ' + tip);
 
-      const cx = pt.x * 10;
-      const cy = pt.y * 10;
+      // Coordinates in projectionDatabase are already in 0..1000 viewBox scale
+      const cx = (pt.x <= 100) ? pt.x * 10 : pt.x;
+      const cy = (pt.y <= 100) ? pt.y * 10 : pt.y;
 
       const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       pulse.setAttribute('class', 'hotspot-pulse');
@@ -203,10 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
       text.setAttribute('class', 'hotspot-label');
       text.setAttribute('x', cx);
       text.setAttribute('y', cy + 4);
-      text.textContent = pt.num;
+      text.textContent = lbl;
 
       const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
-      title.textContent = pt.num + '. ' + pt.name + ' (' + pt.sound + ')';
+      const groupName = pt.group === 'vesicular' ? 'Везикулярное' : 'Бронхиальное';
+      title.textContent = lbl + '. ' + tip + ' (' + groupName + ')';
 
       g.appendChild(pulse);
       g.appendChild(circle);
@@ -225,7 +231,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function selectHotspot(pt) {
     currentPointId = pt.id;
-    showToast(pt.num + '. ' + pt.name + ' — ' + pt.sound);
+    const lbl = pt.label || pt.num || '';
+    const tip = pt.tooltip || pt.name || '';
+    const groupName = pt.group === 'vesicular' ? 'Везикулярное' : 'Бронхиальное';
+    showToast(lbl + '. ' + tip + ' (' + groupName + ')');
 
     if (hotspotsGroup) {
       const allG = hotspotsGroup.querySelectorAll('.svg-hotspot');
@@ -300,9 +309,14 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.setAttribute('aria-selected', isAct ? 'true' : 'false');
     });
 
+    const xrayHeaderTitle = document.getElementById('xrayHeaderTitle');
+    if (xrayHeaderTitle && (proj.xrayTitle || proj.name)) {
+      xrayHeaderTitle.textContent = proj.xrayTitle || proj.name;
+    }
+
     if (xrayImage) {
-      xrayImage.src = proj.image;
-      xrayImage.alt = proj.title;
+      xrayImage.src = proj.imageSrc || proj.image || 'image/normal_chest_xray.png';
+      xrayImage.alt = proj.name || proj.xrayTitle || 'Рентгенограмма легких';
     }
 
     renderSvgHotspots();
@@ -512,8 +526,8 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i <= points; i++) {
       const x = i * step;
       const progress = i / points;
-      const wave = Math.sin(progress * Math.PI * 4 + cycleElapsed * 6) * Math.sin(progress * Math.PI);
-      const noise = (Math.random() - 0.5) * 8 * intensity;
+      const wave = Math.sin(progress * Math.PI * 4 + cycleElapsed * 1.8) * Math.sin(progress * Math.PI);
+      const noise = (Math.random() - 0.5) * 4 * intensity;
       const y = (h / 2) - (wave * (h * 0.38) * intensity) + noise;
 
       if (i === 0) canvasCtx.moveTo(x, y);
@@ -1042,8 +1056,8 @@ document.addEventListener('DOMContentLoaded', () => {
       for (let i = 0; i <= points; i++) {
         const x = i * step;
         const p = i / points;
-        const wave = Math.sin(p * Math.PI * 6 + now * 0.008) * Math.sin(p * Math.PI);
-        const noise = (Math.random() - 0.5) * 10 * intensity;
+        const wave = Math.sin(p * Math.PI * 5 + now * 0.002) * Math.sin(p * Math.PI);
+        const noise = (Math.random() - 0.5) * 4 * intensity;
         const y = (h / 2) - (wave * (h * 0.35) * intensity) + noise;
 
         if (i === 0) modalCanvasCtx.moveTo(x, y);
@@ -1493,7 +1507,7 @@ document.addEventListener('DOMContentLoaded', () => {
     blindCanvasCtx.fillStyle = 'rgba(15, 23, 42, 0.25)';
     blindCanvasCtx.fillRect(0, 0, w, h);
 
-    const time = Date.now() * 0.005;
+    const time = Date.now() * 0.0014;
     blindCanvasCtx.strokeStyle = '#0284c7';
     blindCanvasCtx.lineWidth = 2.5;
     blindCanvasCtx.beginPath();
